@@ -65,12 +65,48 @@
 
 ## 六、AI 协作记录
 
-| 项目 | 内容 |
-|------|------|
-| AI 工具 | Opencode |
-| AI 完成的任务 | 创建 5 个新视图页面（TradeView、LostFoundView、GroupBuyView、ErrandView、UserCenterView）；创建 3 个布局组件（AppLayout、AppHeader、AppNav）；重写路由配置文件；重构 App.vue 使用布局组件 |
-| 人工检查内容 | ① 检查每个新页面的业务场景是否符合"校园轻集市"主题 ② 确认路由器路由路径与导航按钮的 `to` 属性一致 ③ 验证 `UserCenterView.vue` 中 `menus` 变量定义在 `<script setup>` 内而非额外 `<script>` 块 ④ 确认全局 CSS 变量和 doodle 风格覆盖所有组件 ⑤ 运行 `pnpm run build-only` 验证编译通过、无报错 |
-| 修改内容 | 修正 UserCenterView.vue 的 `<script>` 标签结构；调整 App.vue 去除冗余的内联导航逻辑；确认布局组件使用插槽而非硬编码内容 |
+### 6.1 使用的 AI 工具
+
+- **工具名称**：Opencode（AI 辅助编码助手）
+- **使用方式**：在项目工作区中直接输入任务描述，由 AI 读取现有代码后生成新文件或修改已有文件
+
+### 6.2 核心提示词
+
+| 序号 | 输入指令 | 用途 |
+|------|----------|------|
+| 1 | "探索项目当前目录结构，读取关键文件" | 让 AI 先理解已有代码风格、路由配置、CSS 变量体系 |
+| 2 | "按 Day2 实验手册要求，创建 TradeView / LostFoundView / GroupBuyView / ErrandView / UserCenterView 五个新页面，使用项目已有 doodle 风格" | 生成 5 个新视图页面 |
+| 3 | "将 App.vue 中的布局代码拆分为 AppLayout / AppHeader / AppNav 三个独立组件，使用 slot 组合" | 生成 3 个公共布局组件 |
+| 4 | "更新 router/index.ts，加入 8 个核心路由路径" | 重写路由配置 |
+| 5 | "写 Day2_Evidence.md，包含页面骨架、路由导航、公共布局三个关键词" | 生成证据卡 |
+
+### 6.3 AI 生成的内容
+
+| 文件 | 生成方式 | AI 生成部分 |
+|------|----------|-------------|
+| `TradeView.vue` | 全文生成 | 页面标题、搜索筛选栏、分类下拉、6 项占位商品卡片、完整 CSS 样式 |
+| `LostFoundView.vue` | 全文生成 | 页面标题、遗失/拾取 tab 栏、5 项失物列表、状态徽标、完整 CSS |
+| `GroupBuyView.vue` | 全文生成 | 页面标题、分类 Chip 筛选栏、6 项拼单卡片（emoji + 标题 + 人数 + 校区标签）、完整 CSS |
+| `ErrandView.vue` | 全文生成 | 页面标题、5 项跑腿卡片（类型标签 + 报酬 + 截止时间 + 接单状态）、完整 CSS |
+| `UserCenterView.vue` | 全文生成 | 用户卡片（头像 + 昵称 + 学号 + 统计数字）、6 项菜单入口、完整 CSS |
+| `AppLayout.vue` | 全文生成 | flex 纵向布局容器、`<slot name="header">` + `<RouterView />` |
+| `AppHeader.vue` | 全文生成 | 应用标题（点击回首页）、`<slot name="nav">`、响应式适配 |
+| `AppNav.vue` | 全文生成 | 8 项 navItems 数组、`v-for` 渲染按钮、路由高亮 `active` 类绑定 |
+| `router/index.ts` | 全文改写 | 8 条路由配置（1 条直接导入 + 7 条懒加载）、1 条 `/detail/:id` 辅助路由 |
+| `App.vue` | 全文改写 | 移除内联布局和导航代码，改为导入 3 个组件并用插槽组合 |
+| `Day2_Evidence.md` | 全文生成 | 八章结构化证据文档（页面骨架表格 + 路由设计说明 + 布局架构图 + AI 协作表 + 交付物清单） |
+
+### 6.4 人工审查与修改
+
+| 阶段 | 具体操作 | 修改原因 |
+|------|----------|----------|
+| **代码审查** | 通读 5 个新页面的 `<template>` 内容 | 确认页面标题与业务场景匹配"校园轻集市"主题（如 LostFoundView 的失物举例是校园卡、钥匙，ErrandView 的任务是代取快递、超市代购） |
+| **代码审查** | 核对 `AppNav.vue` 中 `navItems` 数组的路由名称与 `router/index.ts` 中的 `name` 字段 | 确保高亮判断 `router.currentRoute.value.name === item.name` 不会因名称不一致而失效 |
+| **代码修复** | 修改 `UserCenterView.vue`：将 `menus` 数组从独立的 `<script lang="ts">` 块移入 `<script setup lang="ts">` | AI 生成了两个 script 块，但 Vue 3 的 `<script setup>` 内变量无法从外部 `<script>` 获取，导致模板渲染 `menus` 为空。将其合并到 setup 块中修复 |
+| **代码修复** | 删除 App.vue 中残留的未导入引用（原文件有 `useRouter` import 和 router 赋值） | 原 App.vue 内联了路由逻辑，改插槽后不再需要 |
+| **结构审查** | 确认 `<RouterView />` 放置在 `AppLayout.vue` 而非 `App.vue` 中 | 保证布局组件的语义正确——"页面内容区域"属于布局骨架的一部分，不应放在组合层 |
+| **编译验证** | 运行 `pnpm run build-only` | 确认 60 个模块全部编译通过，无 TS 类型错误、无缺失导入、无样式冲突 |
+| **内容确认** | 保留原有的 `DetailView.vue`、`ListView.vue`、`ProfileView.vue`、`BoardView.vue` | 这些页面为项目前期已完成的业务页面，不删除以避免破坏现有功能，Day2 仅新增规范要求的页面
 
 ## 七、遇到的问题
 
