@@ -1,136 +1,95 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { getTrades } from '@/api/trade'
+import ItemCard from '@/components/ItemCard.vue'
+import EmptyState from '@/components/EmptyState.vue'
+
+interface Trade {
+  id: number; title: string; price: number; category: string;
+  condition: string; campus: string; status: string;
+  publisher: string; publishTime: string; location: string;
+}
+
+const trades = ref<Trade[]>([])
+const loading = ref(true)
+
+const categories = ['全部', '教材书籍', '数码电子', '生活用品', '运动装备']
+const activeCat = ref('全部')
+
+onMounted(async () => {
+  try {
+    const res = await getTrades()
+    trades.value = res.data
+  } finally {
+    loading.value = false
+  }
+})
+
+const filteredTrades = () => {
+  if (activeCat.value === '全部') return trades.value
+  return trades.value.filter((t: Trade) => t.category === activeCat.value)
+}
+</script>
 
 <template>
   <div class="trade-view">
-    <div class="page-header">
-      <h2>📋 二手交易</h2>
+    <div class="page-top">
+      <h2>二手交易</h2>
       <p>买卖闲置好物，让物品找到新主人</p>
     </div>
 
-    <div class="filter-bar">
-      <input type="text" class="search-input" placeholder="搜一搜你想找的好物..." />
-      <select class="select-input">
-        <option value="">全部分类</option>
-        <option value="book">📚 教材书籍</option>
-        <option value="digital">📱 数码电子</option>
-        <option value="life">🏠 生活用品</option>
-        <option value="sport">⚽ 运动装备</option>
-      </select>
+    <div class="search-bar">
+      <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" placeholder="搜索商品、分类、校区..." />
     </div>
 
-    <div class="item-grid">
-      <div v-for="i in 6" :key="i" class="item-card">
-        <div class="item-emoji">{{ ['📚', '🎧', '🚲', '💡', '⌨️', '🎸'][i - 1] }}</div>
-        <h4>{{ ['高等数学教材', '蓝牙耳机', '校园自行车', 'LED 台灯', '机械键盘', '民谣吉他'][i - 1] }}</h4>
-        <p class="item-price">￥{{ i * 15 + 10 }}</p>
-        <p class="item-meta">主校区 · 九成新</p>
-      </div>
+    <div class="cat-bar">
+      <button
+        v-for="cat in categories"
+        :key="cat"
+        :class="{ active: activeCat === cat }"
+        @click="activeCat = cat"
+      >{{ cat }}</button>
+    </div>
+
+    <EmptyState v-if="!loading && filteredTrades().length === 0" message="暂无商品信息" />
+
+    <div v-else class="item-list">
+      <ItemCard
+        v-for="item in filteredTrades()"
+        :key="item.id"
+        type="trade"
+        :data="item"
+      />
     </div>
   </div>
 </template>
 
 <style scoped>
-.trade-view {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
+.trade-view { display: flex; flex-direction: column; gap: 24px; }
 
-.page-header {
-  text-align: center;
-  padding: 28px 24px 20px;
-  background: #FFFDF5;
-  border: 3px solid var(--doodle-border);
-  border-radius: 24px;
-  box-shadow: 6px 6px 0px var(--doodle-border);
-}
+.page-top { margin-bottom: 4px; }
+.page-top h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+.page-top p { font-size: 14px; color: var(--color-text-secondary); }
 
-.page-header h2 {
-  font-size: 22px;
-  font-weight: 900;
-  color: var(--doodle-red);
-  margin-bottom: 6px;
+.search-bar {
+  display: flex; align-items: center; gap: 10px;
+  padding: 12px 18px; border: 1px solid var(--color-border); border-radius: var(--radius-lg);
+  background: var(--color-surface); transition: border-color var(--transition-fast);
 }
+.search-bar:focus-within { border-color: var(--color-primary); box-shadow: 0 0 0 3px var(--color-primary-light); }
+.search-icon { color: var(--color-text-muted); flex-shrink: 0; }
+.search-bar input { flex: 1; border: none; outline: none; font-size: 14px; font-family: inherit; background: transparent; color: var(--color-text); }
+.search-bar input::placeholder { color: var(--color-text-muted); }
 
-.page-header p {
-  color: #A16207;
-  font-size: 14px;
+.cat-bar { display: flex; gap: 8px; flex-wrap: wrap; }
+.cat-bar button {
+  padding: 8px 18px; border-radius: var(--radius-full); border: 1px solid var(--color-border);
+  background: var(--color-surface); font-size: 13px; font-weight: 500; font-family: inherit;
+  color: var(--color-text-secondary); cursor: pointer; transition: all var(--transition-fast);
 }
+.cat-bar button:hover { border-color: var(--color-primary-soft); color: var(--color-primary); }
+.cat-bar button.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
 
-.filter-bar {
-  display: flex;
-  gap: 12px;
-  flex-wrap: wrap;
-}
-
-.search-input {
-  flex: 1;
-  min-width: 160px;
-  padding: 10px 16px;
-  border: 2.5px solid var(--doodle-border);
-  border-radius: var(--doodle-radius);
-  background: #FFFDF5;
-  font-size: 14px;
-  font-family: inherit;
-  outline: none;
-  transition: box-shadow 0.15s;
-}
-
-.search-input:focus {
-  box-shadow: 0 0 0 3px var(--doodle-cream);
-}
-
-.select-input {
-  padding: 10px 16px;
-  border: 2.5px solid var(--doodle-border);
-  border-radius: var(--doodle-radius);
-  background: #FFFDF5;
-  font-size: 14px;
-  font-family: inherit;
-  cursor: pointer;
-}
-
-.item-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 16px;
-}
-
-.item-card {
-  padding: 20px 16px;
-  border: 2.5px solid var(--doodle-border);
-  border-radius: var(--doodle-radius);
-  background: #FFFDF5;
-  text-align: center;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.item-card:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 4px 4px 0px var(--doodle-border);
-}
-
-.item-emoji {
-  font-size: 36px;
-  margin-bottom: 8px;
-}
-
-.item-card h4 {
-  font-size: 14px;
-  font-weight: 700;
-  margin-bottom: 4px;
-}
-
-.item-price {
-  font-size: 16px;
-  font-weight: 900;
-  color: var(--doodle-red);
-  margin-bottom: 2px;
-}
-
-.item-meta {
-  font-size: 12px;
-  color: #A16207;
-}
+.item-list { display: flex; flex-direction: column; gap: 10px; }
 </style>

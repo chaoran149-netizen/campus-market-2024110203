@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园轻集市 - 聊天详情</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+  <link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+  <div id="app">
+    <div class="app-container">
+      <div class="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="topbar-logo">🎒 校园轻集市</a>
+          <div class="topbar-nav">
+            <el-button text @click="go('/home.html')">首页</el-button>
+            <el-button text @click="go('/category.html')">集市浏览</el-button>
+            <el-button text @click="go('/publish.html')">发布信息</el-button>
+            <el-button text type="primary" @click="go('/messages.html')">消息</el-button>
+            <el-button text @click="go('/profile.html')">个人中心</el-button>
+          </div>
+          <div class="topbar-right">
+            <el-avatar size="small" style="background:#409eff;">张</el-avatar>
+            <span class="text-sm text-gray-600">张三</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <div class="breadcrumb-wrap">
+          <el-breadcrumb>
+            <el-breadcrumb-item :to="{ path: '/home.html' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/messages.html' }">消息中心</el-breadcrumb-item>
+            <el-breadcrumb-item>与小李的对话</el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
+
+        <div class="detail-layout">
+          <div class="detail-main">
+            <el-card shadow="never" style="border-radius:12px;">
+              <!-- 对方信息 -->
+              <div class="flex items-center gap-3 pb-4 border-b border-gray-100 mb-4">
+                <el-avatar size="medium" style="background:#67c23a;">李</el-avatar>
+                <div>
+                  <div class="font-semibold text-gray-800">小李</div>
+                  <div class="text-xs text-gray-400">计算机学院 · 大三</div>
+                </div>
+                <el-button text size="small" style="margin-left:auto;" @click="go('/item-detail.html')">查看相关商品 →</el-button>
+              </div>
+
+              <!-- 关联卡片 -->
+              <div class="bg-blue-50 rounded-lg p-3 flex items-center gap-3 mb-4 cursor-pointer" @click="go('/item-detail.html')">
+                <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=80&h=80&fit=crop" class="w-16 h-16 object-cover rounded-lg">
+                <div>
+                  <div class="text-sm font-semibold text-gray-800">出闲置教材《软件工程导论》</div>
+                  <div class="text-sm text-red-500 font-bold">¥25</div>
+                </div>
+              </div>
+
+              <!-- 聊天记录 -->
+              <div class="space-y-4 mb-4 max-h-96 overflow-y-auto p-2">
+                <div class="flex justify-start">
+                  <div class="bg-gray-100 rounded-lg rounded-bl-none px-4 py-2 max-w-[70%]">
+                    <p class="text-sm text-gray-800">你好，请问教材还在吗？</p>
+                    <span class="text-xs text-gray-400 mt-1 block">10:28</span>
+                  </div>
+                </div>
+                <div class="flex justify-end">
+                  <div class="bg-blue-500 text-white rounded-lg rounded-br-none px-4 py-2 max-w-[70%]">
+                    <p class="text-sm">还在的，你要的话可以小刀</p>
+                    <span class="text-xs text-blue-200 mt-1 block">10:29</span>
+                  </div>
+                </div>
+                <div class="flex justify-start">
+                  <div class="bg-gray-100 rounded-lg rounded-bl-none px-4 py-2 max-w-[70%]">
+                    <p class="text-sm text-gray-800">20 块可以吗？我今天下午可以来拿</p>
+                    <span class="text-xs text-gray-400 mt-1 block">10:30</span>
+                  </div>
+                </div>
+                <div class="flex justify-end">
+                  <div class="bg-blue-500 text-white rounded-lg rounded-br-none px-4 py-2 max-w-[70%]">
+                    <p class="text-sm">行，下午三点 3 号教学楼见？</p>
+                    <span class="text-xs text-blue-200 mt-1 block">10:31</span>
+                  </div>
+                </div>
+                <div class="flex justify-start">
+                  <div class="bg-gray-100 rounded-lg rounded-bl-none px-4 py-2 max-w-[70%]">
+                    <p class="text-sm text-gray-800">好的，到时候联系！</p>
+                    <span class="text-xs text-gray-400 mt-1 block">10:32</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- 常用回复 -->
+              <div class="flex gap-2 mb-3 flex-wrap">
+                <el-button size="small" round @click="quickReply('好的')">好的</el-button>
+                <el-button size="small" round @click="quickReply('还在的')">还在的</el-button>
+                <el-button size="small" round @click="quickReply('可以小刀')">可以小刀</el-button>
+                <el-button size="small" round @click="quickReply('下午见')">下午见</el-button>
+              </div>
+
+              <!-- 输入框 -->
+              <div class="flex gap-2 pt-3 border-t border-gray-100">
+                <el-input v-model="msg" placeholder="输入消息..." @keyup.enter="send" />
+                <el-button type="primary" @click="send">发送</el-button>
+              </div>
+            </el-card>
+          </div>
+          <div class="detail-sidebar">
+            <el-card shadow="never" style="border-radius:12px;">
+              <h3 class="font-semibold text-gray-800 mb-2">💡 沟通提示</h3>
+              <ul class="text-xs text-gray-500 space-y-2 pl-4" style="list-style:disc;">
+                <li>礼貌沟通，诚信交易</li>
+                <li>确认好交易时间和地点</li>
+                <li>如需取消请及时告知对方</li>
+                <li>遇到纠纷可联系平台处理</li>
+              </ul>
+            </el-card>
+          </div>
+        </div>
+      </div>
+      <div class="footer">校园轻集市 · 让校园生活更简单</div>
+    </div>
+  </div>
+  <script>
+    const app = Vue.createApp({
+      data() { return { msg: '' }; },
+      methods: {
+        go(url) { window.location.href = url; },
+        send() { if(this.msg.trim()) { this.$message.success('消息已发送'); this.msg = ''; } },
+        quickReply(text) { this.msg = text; }
+      }
+    });
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>

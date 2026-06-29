@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园轻集市 - 登录</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+  <link rel="stylesheet" href="assets/common.css">
+  <style>
+    .auth-page { min-height: 100vh; display: flex; align-items: center; justify-content: center; background: linear-gradient(135deg, #667eea22, #409eff22); }
+    .auth-card { width: 420px; background: #fff; border-radius: 16px; padding: 40px; box-shadow: 0 8px 40px rgba(0,0,0,0.08); }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="auth-page">
+      <div class="auth-card">
+        <div class="text-center mb-8">
+          <a href="index.html" style="font-size:28px;font-weight:700;color:#409eff;text-decoration:none;">🎒 校园轻集市</a>
+          <p class="text-gray-400 mt-2" style="font-size:14px;">欢迎回来</p>
+        </div>
+        <el-form>
+          <el-form-item>
+            <el-input v-model="form.username" placeholder="请输入学号或邮箱" prefix-icon="User" size="large" />
+          </el-form-item>
+          <el-form-item>
+            <el-input v-model="form.password" type="password" placeholder="请输入密码" prefix-icon="Lock" show-password size="large" />
+          </el-form-item>
+          <div class="flex items-center justify-between mb-4">
+            <el-checkbox v-model="remember">记住我</el-checkbox>
+            <a href="#" class="text-sm text-blue-500 no-underline hover:underline">忘记密码？</a>
+          </div>
+          <el-button type="primary" size="large" style="width:100%;" @click="login">登 录</el-button>
+        </form>
+        <div class="text-center mt-4" style="font-size:13px;color:#909399;">
+          还没有账号？<a href="register.html" class="text-blue-500 no-underline hover:underline">立即注册</a>
+        </div>
+        <div class="mt-6 pt-6 border-t border-gray-100 text-center">
+          <p class="text-xs text-gray-400 mb-3">第三方登录</p>
+          <div class="flex justify-center gap-4" style="font-size:24px;">
+            <span style="cursor:pointer;" title="微信">💬</span>
+            <span style="cursor:pointer;" title="QQ">🐧</span>
+            <span style="cursor:pointer;" title="钉钉">📎</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const app = Vue.createApp({
+      data() { return { form: { username: '', password: '' }, remember: false }; },
+      methods: {
+        login() {
+          if (!this.form.username || !this.form.password) { this.$message.warning('请输入账号和密码'); return; }
+          this.$message.success('登录成功！');
+          setTimeout(() => window.location.href = 'home.html', 800);
+        }
+      }
+    });
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>

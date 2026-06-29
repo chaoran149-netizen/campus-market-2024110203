@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园轻集市 - 我的发布</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+  <link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+  <div id="app">
+    <div class="app-container">
+      <div class="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="topbar-logo">🎒 校园轻集市</a>
+          <div class="topbar-nav">
+            <el-button text @click="go('/home.html')">首页</el-button>
+            <el-button text @click="go('/category.html')">集市浏览</el-button>
+            <el-button text @click="go('/publish.html')">发布信息</el-button>
+            <el-button text @click="go('/messages.html')">消息</el-button>
+            <el-button text type="primary" @click="go('/profile.html')">个人中心</el-button>
+          </div>
+          <div class="topbar-right">
+            <el-avatar size="small" style="background:#409eff;">张</el-avatar>
+            <span class="text-sm text-gray-600">张三</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <div class="breadcrumb-wrap">
+          <el-breadcrumb>
+            <el-breadcrumb-item :to="{ path: '/home.html' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/profile.html' }">个人中心</el-breadcrumb-item>
+            <el-breadcrumb-item>我的发布</el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
+
+        <div class="flex items-center justify-between mb-4">
+          <h1 class="text-xl font-bold text-gray-800">📄 我的发布</h1>
+          <el-button type="primary" @click="go('/publish.html')">✏️ 发布新信息</el-button>
+        </div>
+
+        <el-card shadow="never" style="border-radius:12px;">
+          <el-tabs v-model="tab">
+            <el-tab-pane label="全部" name="all">
+              <div class="space-y-3">
+                <div v-for="post in posts" :key="post.id" class="flex items-center gap-4 p-4 border border-gray-100 rounded-lg hover:bg-gray-50 cursor-pointer" @click="go('/item-detail.html')">
+                  <img :src="post.img" class="w-20 h-20 object-cover rounded-lg">
+                  <div class="flex-1 min-w-0">
+                    <h3 class="font-semibold text-gray-800">{{ post.title }}</h3>
+                    <p class="text-sm text-gray-400">{{ post.type }} · {{ post.campus }} · {{ post.time }}</p>
+                  </div>
+                  <div class="text-right">
+                    <div v-if="post.price" class="text-lg font-bold text-red-500">¥{{ post.price }}</div>
+                    <el-tag :type="post.statusTag" size="small">{{ post.status }}</el-tag>
+                  </div>
+                  <el-button text type="primary" size="small" @click.stop="editStatus(post)">修改状态</el-button>
+                </div>
+              </div>
+            </el-tab-pane>
+            <el-tab-pane label="进行中" name="active"></el-tab-pane>
+            <el-tab-pane label="已完成" name="done"></el-tab-pane>
+            <el-tab-pane label="已关闭" name="closed"></el-tab-pane>
+          </el-tabs>
+        </el-card>
+      </div>
+      <div class="footer">校园轻集市 · 让校园生活更简单</div>
+    </div>
+  </div>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          tab: 'all',
+          posts: [
+            { id: 1, title: '出闲置教材《软件工程导论》', type: '二手交易', campus: '主校区', time: '2026-06-27', price: 25, status: '进行中', statusTag: 'warning', img: 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=160&h=160&fit=crop' },
+            { id: 2, title: '毕业出二手山地车', type: '二手交易', campus: '西校区', time: '2026-06-25', price: 350, status: '已完成', statusTag: 'success', img: 'https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=160&h=160&fit=crop' },
+            { id: 3, title: '东区食堂三楼拼奶茶', type: '拼单搭子', campus: '东校区', time: '2026-06-24', price: 0, status: '进行中', statusTag: 'warning', img: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=160&h=160&fit=crop' },
+            { id: 4, title: '求帮取快递到 6 栋宿舍', type: '跑腿委托', campus: '主校区', time: '2026-06-23', price: 5, status: '已完成', statusTag: 'success', img: 'https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=160&h=160&fit=crop' },
+          ]
+        };
+      },
+      methods: {
+        go(url) { window.location.href = url; },
+        editStatus(post) { this.$prompt('修改状态为：', '提示', { inputValue: post.status }).then(() => this.$message.success('状态已更新')); }
+      }
+    });
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>

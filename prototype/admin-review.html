@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园轻集市 - 信息审核</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+  <link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+  <div id="app">
+    <div class="app-container">
+      <div class="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="topbar-logo">🎒 校园轻集市</a>
+          <div class="topbar-right">
+            <el-tag type="danger" size="small">管理员</el-tag>
+            <el-avatar size="small" style="background:#f56c6c;">管</el-avatar>
+            <span class="text-sm text-gray-600">管理员</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-layout">
+        <div class="admin-sidebar">
+          <el-menu default-active="review" style="border:0;">
+            <el-menu-item index="dashboard" @click="go('admin-dashboard.html')">
+              <span style="margin-right:8px;">📊</span>数据概览
+            </el-menu-item>
+            <el-menu-item index="review">
+              <span style="margin-right:8px;">✅</span>信息审核
+            </el-menu-item>
+            <el-menu-item index="users">
+              <span style="margin-right:8px;">👥</span>用户管理
+            </el-menu-item>
+            <el-menu-item index="reports">
+              <span style="margin-right:8px;">🚩</span>举报处理
+            </el-menu-item>
+            <el-menu-item index="settings">
+              <span style="margin-right:8px;">⚙️</span>系统设置
+            </el-menu-item>
+          </el-menu>
+        </div>
+
+        <div class="admin-main">
+          <h1 class="text-xl font-bold text-gray-800 mb-6">✅ 信息审核</h1>
+
+          <el-card shadow="never" style="border-radius:12px;margin-bottom:16px;">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+              <el-input v-model="search" placeholder="搜索标题..." prefix-icon="Search" />
+              <el-select v-model="typeFilter" placeholder="全部分类" clearable>
+                <el-option label="全部分类" value=""></el-option>
+                <el-option label="二手交易" value="secondhand"></el-option>
+                <el-option label="失物招领" value="lostfound"></el-option>
+                <el-option label="拼单搭子" value="groupbuy"></el-option>
+                <el-option label="跑腿委托" value="errand"></el-option>
+              </el-select>
+              <el-select v-model="statusFilter" placeholder="全部状态" clearable>
+                <el-option label="全部状态" value=""></el-option>
+                <el-option label="待审核" value="pending"></el-option>
+                <el-option label="已通过" value="approved"></el-option>
+                <el-option label="已驳回" value="rejected"></el-option>
+              </el-select>
+              <el-button type="primary" @click="search">搜索</el-button>
+            </div>
+          </el-card>
+
+          <el-card shadow="never" style="border-radius:12px;">
+            <el-table :data="tableData" style="width:100%;" stripe>
+              <el-table-column prop="id" label="ID" width="60" />
+              <el-table-column prop="title" label="标题" min-width="200">
+                <template #default="{ row }">
+                  <a :href="row.link" class="text-blue-500 no-underline hover:underline text-sm">{{ row.title }}</a>
+                </template>
+              </el-table-column>
+              <el-table-column prop="type" label="类型" width="100">
+                <template #default="{ row }">
+                  <el-tag :type="row.tagType" size="small">{{ row.type }}</el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column prop="publisher" label="发布者" width="100" />
+              <el-table-column prop="time" label="发布时间" width="120" />
+              <el-table-column prop="status" label="状态" width="100">
+                <template #default="{ row }">
+                  <el-tag :type="row.statusTag" size="small">{{ row.status }}</el-tag>
+                </template>
+              </el-table-column>
+              <el-table-column label="操作" width="180">
+                <template #default="{ row }">
+                  <el-button size="small" type="success" @click="approve(row)" v-if="row.status === '待审核'">通过</el-button>
+                  <el-button size="small" type="danger" @click="reject(row)" v-if="row.status === '待审核'">驳回</el-button>
+                  <el-button size="small" @click="go(row.link)">查看</el-button>
+                </template>
+              </el-table-column>
+            </el-table>
+            <div class="flex justify-center mt-4">
+              <el-pagination background layout="prev, pager, next" :total="24" />
+            </div>
+          </el-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          search: '', typeFilter: '', statusFilter: '',
+          tableData: [
+            { id: 1, title: '出闲置教材《软件工程导论》', type: '二手交易', tagType: 'warning', publisher: '张三', time: '2026-06-27 10:00', status: '待审核', statusTag: 'warning', link: 'item-detail.html' },
+            { id: 2, title: '求购二手显示器，预算 300 元以内', type: '二手交易', tagType: 'warning', publisher: '李四', time: '2026-06-27 09:30', status: '待审核', statusTag: 'warning', link: 'item-detail.html' },
+            { id: 3, title: '拾到校园卡一张——李同学', type: '失物招领', tagType: 'danger', publisher: '赵六', time: '2026-06-26 18:00', status: '已通过', statusTag: 'success', link: 'lost-detail.html' },
+            { id: 4, title: '索尼降噪耳机 WH-1000XM4', type: '二手交易', tagType: 'warning', publisher: '王五', time: '2026-06-26 15:20', status: '待审核', statusTag: 'warning', link: 'item-detail.html' },
+            { id: 5, title: '东区食堂三楼拼奶茶', type: '拼单搭子', tagType: 'warning', publisher: '刘七', time: '2026-06-26 14:00', status: '已通过', statusTag: 'success', link: 'group-detail.html' },
+            { id: 6, title: '西门打印店附近丢失黑色耳机盒', type: '失物招领', tagType: 'danger', publisher: '吴八', time: '2026-06-25 20:00', status: '已驳回', statusTag: 'danger', link: 'lost-detail.html' },
+          ]
+        };
+      },
+      methods: {
+        go(url) { window.location.href = url; },
+        approve(row) { row.status = '已通过'; row.statusTag = 'success'; this.$message.success('已通过'); },
+        reject(row) { this.$confirm('确认驳回该信息？', '提示').then(() => { row.status = '已驳回'; row.statusTag = 'danger'; this.$message.success('已驳回'); }); }
+      }
+    });
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>

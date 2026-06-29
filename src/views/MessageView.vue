@@ -1,151 +1,75 @@
-<script setup lang="ts">
-import { ref } from 'vue'
-
-const conversations = ref([
-  { id: 1, user: '张三', avatar: '🧑‍🎓', lastMsg: '这个还卖吗？', unread: 2, time: '10:32' },
-  { id: 2, user: '李四', avatar: '👩‍🎓', lastMsg: '好的，谢谢！', unread: 0, time: '昨天' },
-  { id: 3, user: '王五', avatar: '🧑‍💻', lastMsg: '明天下午可以吗？', unread: 1, time: '昨天' },
-  { id: 4, user: '赵六', avatar: '👨‍🌾', lastMsg: '我在3号教学楼等你', unread: 0, time: '6/26' },
-])
-</script>
+<script setup lang="ts"></script>
 
 <template>
   <div class="message-view">
-    <div class="msg-header">
-      <h2>💬 消息</h2>
-      <span class="total-badge">{{ conversations.filter(c => c.unread).length }} 条未读</span>
+    <div class="page-top">
+      <h2>消息</h2>
+      <p>与你相关的私信和系统通知</p>
     </div>
 
-    <div class="conv-list">
-      <div v-for="conv in conversations" :key="conv.id" class="conv-item">
-        <div class="conv-avatar">{{ conv.avatar }}</div>
-        <div class="conv-info">
-          <div class="conv-top">
-            <span class="conv-user">{{ conv.user }}</span>
-            <span class="conv-time">{{ conv.time }}</span>
-          </div>
-          <div class="conv-bottom">
-            <span class="conv-msg" :class="{ unread: conv.unread }">{{ conv.lastMsg }}</span>
-            <span v-if="conv.unread" class="unread-badge">{{ conv.unread }}</span>
-          </div>
+    <div class="tab-bar">
+      <button class="tab active">全部</button>
+      <button class="tab">未读</button>
+    </div>
+
+    <div class="msg-list">
+      <div v-for="i in 6" :key="i" class="msg-card" :class="{ unread: i <= 2 }">
+        <div class="msg-avatar" :style="{ background: ['#EEF2FF','#D1FAE5','#FEF3C7','#F3E8FF','#FCE7F3','#E5E7EB'][i-1], color: ['#4F46E5','#059669','#D97706','#7C3AED','#BE185D','#6B7280'][i-1] }">
+          {{ ['👤','🛒','📢','👥','🏃','🔔'][i-1] }}
         </div>
+        <div class="msg-body">
+          <div class="msg-header">
+            <span class="msg-name">{{ ['李同学','系统通知','集市小助手','王同学','张同学','交易提醒'][i-1] }}</span>
+            <span class="msg-time">{{ ['10分钟前','1小时前','昨天','昨天','2天前','3天前'][i-1] }}</span>
+          </div>
+          <p class="msg-preview">{{ ['你好，蓝牙耳机还在吗？','你的二手教材已被收藏','拼单搭子有新的组队请求','足球组队还差人吗？','菜鸟驿站的快递已取到','安全交易小贴士已更新'][i-1] }}</p>
+        </div>
+        <span v-if="i <= 2" class="unread-dot"></span>
       </div>
-    </div>
-
-    <div class="empty-state" v-if="!conversations.length">
-      <p>📭 还没有消息，去集市逛逛吧</p>
     </div>
   </div>
 </template>
 
 <style scoped>
-.msg-header {
-  display: flex;
-  align-items: baseline;
-  gap: 12px;
-  margin-bottom: 16px;
+.message-view { display: flex; flex-direction: column; gap: 24px; max-width: 600px; }
+
+.page-top { margin-bottom: 4px; }
+.page-top h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+.page-top p { font-size: 14px; color: var(--color-text-secondary); }
+
+/* ── Tabs ── */
+.tab-bar { display: flex; gap: 8px; }
+.tab {
+  padding: 8px 20px; border: 1px solid var(--color-border); border-radius: var(--radius-full);
+  background: var(--color-surface); font-size: 13px; font-weight: 500; font-family: inherit;
+  color: var(--color-text-secondary); cursor: pointer; transition: all var(--transition-fast);
+}
+.tab.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
+
+/* ── Message List ── */
+.msg-list { display: flex; flex-direction: column; gap: 2px; }
+
+.msg-card {
+  display: flex; align-items: center; gap: 14px; padding: 14px 18px;
+  border-radius: var(--radius-lg); transition: background var(--transition-fast); cursor: pointer; position: relative;
+}
+.msg-card:hover { background: var(--color-surface-hover); }
+
+.msg-avatar {
+  width: 44px; height: 44px; border-radius: var(--radius-md); display: flex;
+  align-items: center; justify-content: center; font-size: 18px; flex-shrink: 0;
 }
 
-.msg-header h2 {
-  font-size: 22px;
-  font-weight: 900;
-}
+.msg-body { flex: 1; min-width: 0; }
+.msg-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px; }
+.msg-name { font-size: 14px; font-weight: 600; color: var(--color-text); }
+.msg-time { font-size: 12px; color: var(--color-text-muted); flex-shrink: 0; }
+.msg-preview { font-size: 13px; color: var(--color-text-secondary); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 
-.total-badge {
-  font-size: 13px;
-  padding: 2px 12px;
-  border: 2px solid var(--doodle-border);
-  border-radius: 20px;
-  background: var(--doodle-cream);
-  font-weight: 700;
-  color: #A16207;
+.unread-dot {
+  width: 8px; height: 8px; border-radius: 50%; background: var(--color-primary);
+  position: absolute; right: 18px; top: 50%; transform: translateY(-50%);
 }
-
-.conv-list {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-}
-
-.conv-item {
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  padding: 14px 16px;
-  border: 2.5px solid var(--doodle-border);
-  border-radius: var(--doodle-radius);
-  cursor: pointer;
-  background: #FFFDF5;
-  transition: all 0.15s;
-}
-
-.conv-item:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 4px 4px 0px var(--doodle-border);
-}
-
-.conv-avatar {
-  font-size: 36px;
-  flex-shrink: 0;
-}
-
-.conv-info {
-  flex: 1;
-  min-width: 0;
-}
-
-.conv-top {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 4px;
-}
-
-.conv-user {
-  font-weight: 900;
-  font-size: 15px;
-}
-
-.conv-time {
-  font-size: 12px;
-  color: #A16207;
-}
-
-.conv-bottom {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.conv-msg {
-  font-size: 13px;
-  color: #A16207;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  max-width: 220px;
-}
-
-.conv-msg.unread {
-  color: var(--doodle-text);
-  font-weight: 700;
-}
-
-.unread-badge {
-  background: var(--doodle-red);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 700;
-  padding: 1px 8px;
-  border-radius: 10px;
-  flex-shrink: 0;
-}
-
-.empty-state {
-  text-align: center;
-  padding: 40px;
-  border: 2.5px dashed var(--doodle-border);
-  border-radius: var(--doodle-radius);
-  color: #A16207;
-}
+.msg-card.unread .msg-name { font-weight: 700; }
+.msg-card.unread .msg-preview { color: var(--color-text); }
 </style>

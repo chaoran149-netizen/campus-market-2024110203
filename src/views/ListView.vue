@@ -72,17 +72,17 @@ const goDetail = (id: number) => {
 
 .list-header h2 {
   font-size: 22px;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .count-badge {
   font-size: 13px;
   padding: 2px 12px;
-  border: 2px solid var(--doodle-border);
-  border-radius: 20px;
-  background: var(--doodle-cream);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-primary-light);
   font-weight: 700;
-  color: #A16207;
+  color: var(--color-text-secondary);
 }
 
 .filters {
@@ -96,31 +96,31 @@ const goDetail = (id: number) => {
   flex: 1;
   min-width: 180px;
   padding: 10px 14px;
-  border: 2.5px solid var(--doodle-border);
-  border-radius: var(--doodle-radius);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   font-family: inherit;
   font-size: 14px;
-  background: #FFFDF5;
+  background: var(--color-surface);
 }
 
 .search-input:focus {
   outline: none;
-  box-shadow: 3px 3px 0px var(--doodle-border);
+  box-shadow: var(--shadow-sm);
 }
 
 .filter-select {
   padding: 10px 14px;
-  border: 2.5px solid var(--doodle-border);
-  border-radius: var(--doodle-radius);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   font-family: inherit;
   font-size: 14px;
-  background: #FFFDF5;
+  background: var(--color-surface);
   cursor: pointer;
 }
 
 .filter-select:focus {
   outline: none;
-  box-shadow: 3px 3px 0px var(--doodle-border);
+  box-shadow: var(--shadow-sm);
 }
 
 .item-list {
@@ -134,16 +134,16 @@ const goDetail = (id: number) => {
   align-items: center;
   gap: 14px;
   padding: 14px 18px;
-  border: 2.5px solid var(--doodle-border);
-  border-radius: var(--doodle-radius);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
   cursor: pointer;
-  background: #FFFDF5;
+  background: var(--color-surface);
   transition: all 0.15s;
 }
 
 .item-card:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 4px 4px 0px var(--doodle-border);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .item-emoji {
@@ -179,9 +179,9 @@ const goDetail = (id: number) => {
 }
 
 .tag-type {
-  background: #FEF3C7;
-  color: #A16207;
-  border: 1.5px solid #D97706;
+  background: var(--color-primary-light);
+  color: var(--color-text-secondary);
+  border: 1.5px solid var(--color-border);
 }
 
 .tag-campus {
@@ -193,12 +193,12 @@ const goDetail = (id: number) => {
 .tag-price {
   background: #FEE2E2;
   color: #DC2626;
-  border: 1.5px solid #EF4444;
+  border: 1.5px solid var(--color-primary);
 }
 
 .item-arrow {
   font-size: 20px;
-  color: #A16207;
+  color: var(--color-text-secondary);
   font-weight: 700;
   flex-shrink: 0;
 }

@@ -2,10 +2,10 @@
 const stats = {
   total: 128,
   byType: [
-    { type: '二手交易', count: 52, color: '#F59E0B' },
+    { type: '二手交易', count: 52, color: 'var(--color-primary)' },
     { type: '失物招领', count: 28, color: '#38BDF8' },
     { type: '拼单搭子', count: 31, color: '#10B981' },
-    { type: '跑腿委托', count: 17, color: '#EF4444' },
+    { type: '跑腿委托', count: 17, color: 'var(--color-primary)' },
   ],
   byCampus: [
     { campus: '主校区', count: 68, color: '#8B5CF6' },
@@ -106,7 +106,7 @@ const stats = {
 <style scoped>
 .page-title {
   font-size: 22px;
-  font-weight: 900;
+  font-weight: 700;
   margin-bottom: 20px;
 }
 
@@ -115,23 +115,23 @@ const stats = {
   flex-direction: column;
   align-items: center;
   padding: 28px 24px;
-  border: 3px solid var(--doodle-border);
-  border-radius: 24px;
-  background: #FFFDF5;
-  box-shadow: 6px 6px 0px var(--doodle-border);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
   margin-bottom: 24px;
 }
 
 .total-num {
   font-size: 56px;
-  font-weight: 900;
-  color: var(--doodle-red);
+  font-weight: 700;
+  color: var(--color-primary);
   line-height: 1;
 }
 
 .total-label {
   font-size: 14px;
-  color: #A16207;
+  color: var(--color-text-secondary);
   margin-top: 4px;
 }
 
@@ -148,7 +148,7 @@ const stats = {
 
 .section-title h3 {
   font-size: 16px;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .bar-chart {
@@ -173,10 +173,10 @@ const stats = {
 .bar-track {
   flex: 1;
   height: 22px;
-  background: #FEF3C7;
+  background: var(--color-primary-light);
   border-radius: 11px;
   overflow: hidden;
-  border: 2px solid var(--doodle-border);
+  border: 1px solid var(--color-border);
 }
 
 .bar-fill {
@@ -190,7 +190,7 @@ const stats = {
   text-align: right;
   font-size: 13px;
   font-weight: 700;
-  color: #A16207;
+  color: var(--color-text-secondary);
 }
 
 .status-list {
@@ -204,9 +204,9 @@ const stats = {
   justify-content: space-between;
   align-items: center;
   padding: 12px 16px;
-  border: 2.5px solid var(--doodle-border);
-  border-radius: var(--doodle-radius);
-  background: #FFFDF5;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
 }
 
 .status-left {
@@ -223,12 +223,12 @@ const stats = {
 }
 
 .status-dot.进行中 { background: #10B981; }
-.status-dot.已完成 { background: #F59E0B; }
+.status-dot.已完成 { background: var(--color-primary); }
 .status-dot.已关闭 { background: #9CA3AF; }
 
 .status-right {
   font-weight: 700;
-  color: #A16207;
+  color: var(--color-text-secondary);
 }
 
 .rank-list {
@@ -242,9 +242,9 @@ const stats = {
   align-items: center;
   gap: 10px;
   padding: 12px 16px;
-  border: 2.5px solid var(--doodle-border);
-  border-radius: var(--doodle-radius);
-  background: #FFFDF5;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
 }
 
 .rank-num {
@@ -260,7 +260,7 @@ const stats = {
 
 .rank-count {
   font-size: 12px;
-  color: #A16207;
+  color: var(--color-text-secondary);
   flex-shrink: 0;
 }
 </style>

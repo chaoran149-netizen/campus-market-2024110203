@@ -1,140 +1,70 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+import { ref, onMounted } from 'vue'
+import { getLostFounds } from '@/api/lostFound'
+import ItemCard from '@/components/ItemCard.vue'
+import EmptyState from '@/components/EmptyState.vue'
+
+interface LostFound {
+  id: number; title: string; type: string; itemName: string;
+  location: string; time: string; description: string;
+  status: string; campus: string; contact: string;
+}
+
+const items = ref<LostFound[]>([])
+const loading = ref(true)
+const activeTab = ref<'lost' | 'found'>('lost')
+
+onMounted(async () => {
+  try {
+    const res = await getLostFounds()
+    items.value = res.data
+  } finally {
+    loading.value = false
+  }
+})
+
+const filteredItems = () => items.value.filter((i: LostFound) => i.type === activeTab.value)
+</script>
 
 <template>
   <div class="lost-found-view">
-    <div class="page-header">
-      <h2>🔍 失物招领</h2>
+    <div class="page-top">
+      <h2>失物招领</h2>
       <p>丢了东西别着急，捡到东西也别放着</p>
     </div>
 
     <div class="tab-bar">
-      <button class="tab-btn active">遗失求助</button>
-      <button class="tab-btn">拾取启示</button>
+      <button :class="{ active: activeTab === 'lost' }" @click="activeTab = 'lost'">遗失求助</button>
+      <button :class="{ active: activeTab === 'found' }" @click="activeTab = 'found'">拾取启事</button>
     </div>
 
-    <div class="item-list">
-      <div v-for="i in 5" :key="i" class="item-card">
-        <div class="card-left">
-          <div class="card-emoji">{{ ['🪪', '🔑', '📱', '👛', '🧣'][i - 1] }}</div>
-        </div>
-        <div class="card-body">
-          <h4>{{ ['校园卡', '钥匙串', '手机', '钱包', '围巾'][i - 1] }}</h4>
-          <p class="card-desc">{{ ['李同学 · 计算机学院', '一串钥匙 + 红色挂件', 'iPhone 14 黑色', '棕色钱包含证件', '灰色羊绒围巾'][i - 1] }}</p>
-          <p class="card-meta">主校区 · 二食堂附近 · 昨天</p>
-        </div>
-        <div class="card-badge">{{ i === 3 ? '🔴 未找到' : '🟢 已找到' }}</div>
-      </div>
+    <EmptyState v-if="!loading && filteredItems().length === 0" message="暂无相关信息" />
+
+    <div v-else class="item-list">
+      <ItemCard
+        v-for="item in filteredItems()"
+        :key="item.id"
+        type="lostFound"
+        :data="item"
+      />
     </div>
   </div>
 </template>
 
 <style scoped>
-.lost-found-view {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
+.lost-found-view { display: flex; flex-direction: column; gap: 24px; }
 
-.page-header {
-  text-align: center;
-  padding: 28px 24px 20px;
-  background: #FFFDF5;
-  border: 3px solid var(--doodle-border);
-  border-radius: 24px;
-  box-shadow: 6px 6px 0px var(--doodle-border);
-}
+.page-top { margin-bottom: 4px; }
+.page-top h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
+.page-top p { font-size: 14px; color: var(--color-text-secondary); }
 
-.page-header h2 {
-  font-size: 22px;
-  font-weight: 900;
-  color: var(--doodle-red);
-  margin-bottom: 6px;
+.tab-bar { display: flex; gap: 8px; background: var(--color-border-light); padding: 4px; border-radius: var(--radius-lg); }
+.tab-bar button {
+  flex: 1; padding: 10px 20px; border: none; border-radius: var(--radius-md); background: transparent;
+  font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer; color: var(--color-text-secondary);
+  transition: all var(--transition-fast);
 }
+.tab-bar button.active { background: var(--color-surface); color: var(--color-text); box-shadow: var(--shadow-xs); }
 
-.page-header p {
-  color: #A16207;
-  font-size: 14px;
-}
-
-.tab-bar {
-  display: flex;
-  gap: 8px;
-}
-
-.tab-btn {
-  flex: 1;
-  padding: 10px;
-  border: 2.5px solid var(--doodle-border);
-  border-radius: var(--doodle-radius);
-  background: #FFFDF5;
-  font-size: 14px;
-  font-weight: 700;
-  font-family: inherit;
-  cursor: pointer;
-  transition: all 0.15s;
-}
-
-.tab-btn:hover {
-  background: var(--doodle-cream);
-}
-
-.tab-btn.active {
-  background: var(--doodle-yellow);
-  color: #fff;
-  border-color: var(--doodle-yellow);
-  box-shadow: 3px 3px 0px var(--doodle-border);
-}
-
-.item-list {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.item-card {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 16px;
-  border: 2.5px solid var(--doodle-border);
-  border-radius: var(--doodle-radius);
-  background: #FFFDF5;
-  transition: all 0.15s;
-}
-
-.item-card:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 4px 4px 0px var(--doodle-border);
-}
-
-.card-emoji {
-  font-size: 32px;
-}
-
-.card-body {
-  flex: 1;
-}
-
-.card-body h4 {
-  font-size: 15px;
-  font-weight: 700;
-  margin-bottom: 2px;
-}
-
-.card-desc {
-  font-size: 13px;
-  color: #A16207;
-  margin-bottom: 2px;
-}
-
-.card-meta {
-  font-size: 12px;
-  color: #B45309;
-}
-
-.card-badge {
-  font-size: 12px;
-  font-weight: 700;
-  white-space: nowrap;
-}
+.item-list { display: flex; flex-direction: column; gap: 10px; }
 </style>

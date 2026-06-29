@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园轻集市 - 个人中心</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+  <link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+  <div id="app">
+    <div class="app-container">
+      <div class="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="topbar-logo">🎒 校园轻集市</a>
+          <div class="topbar-nav">
+            <el-button text @click="go('/home.html')">首页</el-button>
+            <el-button text @click="go('/category.html')">集市浏览</el-button>
+            <el-button text @click="go('/publish.html')">发布信息</el-button>
+            <el-button text @click="go('/messages.html')">消息</el-button>
+            <el-button text type="primary" @click="go('/profile.html')">个人中心</el-button>
+          </div>
+          <div class="topbar-right">
+            <el-avatar size="small" style="background:#409eff;">张</el-avatar>
+            <span class="text-sm text-gray-600">张三</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <div class="breadcrumb-wrap">
+          <el-breadcrumb>
+            <el-breadcrumb-item :to="{ path: '/home.html' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>个人中心</el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
+
+        <!-- 用户信息卡片 -->
+        <el-card shadow="never" style="border-radius:12px;margin-bottom:24px;">
+          <div class="flex items-center gap-6">
+            <el-avatar :size="72" style="background:#409eff;font-size:28px;">张</el-avatar>
+            <div class="flex-1">
+              <h2 class="text-xl font-bold text-gray-800">张三</h2>
+              <p class="text-sm text-gray-400">计算机学院 · 大三 · 主校区</p>
+              <div class="flex items-center gap-4 mt-2">
+                <el-tag type="success" size="small">⭐ 信用分 85</el-tag>
+                <el-tag type="info" size="small">📅 加入 7 天</el-tag>
+              </div>
+            </div>
+            <div class="grid grid-cols-3 gap-6 text-center">
+              <div><div class="text-xl font-bold text-blue-500">6</div><div class="text-xs text-gray-400">我的发布</div></div>
+              <div><div class="text-xl font-bold text-orange-500">12</div><div class="text-xs text-gray-400">我的收藏</div></div>
+              <div><div class="text-xl font-bold text-green-500">5</div><div class="text-xs text-gray-400">成交次数</div></div>
+            </div>
+          </div>
+        </el-card>
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- 快捷入口 -->
+          <div class="md:col-span-1 space-y-4">
+            <el-card shadow="never" style="border-radius:12px;">
+              <div class="space-y-1">
+                <div class="p-3 rounded-lg hover:bg-blue-50 cursor-pointer flex items-center gap-3" @click="go('/my-posts.html')">
+                  <span style="font-size:20px;">📄</span><span>我的发布</span>
+                </div>
+                <div class="p-3 rounded-lg hover:bg-blue-50 cursor-pointer flex items-center gap-3" @click="go('/favorites.html')">
+                  <span style="font-size:20px;">❤️</span><span>我的收藏</span>
+                </div>
+                <div class="p-3 rounded-lg hover:bg-blue-50 cursor-pointer flex items-center gap-3" @click="go('/messages.html')">
+                  <span style="font-size:20px;">💬</span><span>消息中心</span>
+                </div>
+                <div class="p-3 rounded-lg hover:bg-blue-50 cursor-pointer flex items-center gap-3" @click="go('/settings.html')">
+                  <span style="font-size:20px;">⚙️</span><span>账号设置</span>
+                </div>
+              </div>
+            </el-card>
+          </div>
+
+          <!-- 最近动态 -->
+          <div class="md:col-span-2">
+            <el-card shadow="never" style="border-radius:12px;">
+              <h3 class="font-semibold text-gray-800 mb-4">📌 最近动态</h3>
+              <el-timeline>
+                <el-timeline-item timestamp="2026-06-27 10:32" placement="top" type="primary">
+                  <div class="text-sm">你向 <strong>小李</strong> 发送了关于《软件工程导论》的消息</div>
+                </el-timeline-item>
+                <el-timeline-item timestamp="2026-06-26 15:00" placement="top" type="success">
+                  <div class="text-sm">你发布的 <strong>二手山地车</strong> 已标记为已完成</div>
+                </el-timeline-item>
+                <el-timeline-item timestamp="2026-06-25 20:15" placement="top" type="warning">
+                  <div class="text-sm">你收藏了 <strong>索尼降噪耳机 WH-1000XM4</strong></div>
+                </el-timeline-item>
+                <el-timeline-item timestamp="2026-06-24 12:30" placement="top" type="info">
+                  <div class="text-sm">你发布了新信息 <strong>东区食堂三楼拼奶茶</strong></div>
+                </el-timeline-item>
+              </el-timeline>
+            </el-card>
+          </div>
+        </div>
+      </div>
+      <div class="footer">校园轻集市 · 让校园生活更简单</div>
+    </div>
+  </div>
+  <script>
+    const app = Vue.createApp({
+      methods: { go(url) { window.location.href = url; } }
+    });
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>

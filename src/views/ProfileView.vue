@@ -75,7 +75,7 @@ const myFavorites = ref([
 <style scoped>
 .page-title {
   font-size: 22px;
-  font-weight: 900;
+  font-weight: 700;
   margin-bottom: 20px;
 }
 
@@ -84,10 +84,10 @@ const myFavorites = ref([
   gap: 18px;
   align-items: center;
   padding: 20px;
-  border: 3px solid var(--doodle-border);
-  border-radius: 24px;
-  background: #FFFDF5;
-  box-shadow: 6px 6px 0px var(--doodle-border);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
   margin-bottom: 28px;
 }
 
@@ -95,26 +95,26 @@ const myFavorites = ref([
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: var(--doodle-yellow);
+  background: var(--color-primary);
   color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 28px;
-  font-weight: 900;
-  border: 3px solid var(--doodle-border);
+  font-weight: 700;
+  border: 1px solid var(--color-border);
   flex-shrink: 0;
 }
 
 .user-info h3 {
   font-size: 18px;
-  font-weight: 900;
+  font-weight: 700;
   margin-bottom: 2px;
 }
 
 .user-meta {
   font-size: 13px;
-  color: #A16207;
+  color: var(--color-text-secondary);
   margin-bottom: 10px;
 }
 
@@ -130,14 +130,14 @@ const myFavorites = ref([
 }
 
 .stat-num {
-  font-weight: 900;
+  font-weight: 700;
   font-size: 15px;
-  color: var(--doodle-text);
+  color: var(--color-text);
 }
 
 .stat-label {
   font-size: 11px;
-  color: #A16207;
+  color: var(--color-text-secondary);
 }
 
 .section {
@@ -153,7 +153,7 @@ const myFavorites = ref([
 
 .section-title h3 {
   font-size: 16px;
-  font-weight: 900;
+  font-weight: 700;
 }
 
 .list-items {
@@ -167,16 +167,16 @@ const myFavorites = ref([
   justify-content: space-between;
   align-items: center;
   padding: 12px 16px;
-  border: 2.5px solid var(--doodle-border);
-  border-radius: var(--doodle-radius);
-  background: #FFFDF5;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
   cursor: pointer;
   transition: all 0.15s;
 }
 
 .list-item:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 4px 4px 0px var(--doodle-border);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .item-title {
@@ -188,23 +188,23 @@ const myFavorites = ref([
   font-size: 12px;
   padding: 2px 12px;
   border-radius: 10px;
-  background: var(--doodle-cream);
-  border: 1.5px solid var(--doodle-border);
-  color: #A16207;
+  background: var(--color-primary-light);
+  border: 1.5px solid var(--color-border);
+  color: var(--color-text-secondary);
   font-weight: 700;
 }
 
 .item-arrow {
-  color: #A16207;
+  color: var(--color-text-secondary);
   font-weight: 700;
 }
 
 .empty-text {
   font-size: 13px;
-  color: #A16207;
+  color: var(--color-text-secondary);
   text-align: center;
   padding: 20px;
-  border: 2px dashed var(--doodle-border);
-  border-radius: var(--doodle-radius);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-md);
 }
 </style>

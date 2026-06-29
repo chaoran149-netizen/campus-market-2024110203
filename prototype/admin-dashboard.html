@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园轻集市 - 管理端</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+  <link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+  <div id="app">
+    <div class="app-container">
+      <div class="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="topbar-logo">🎒 校园轻集市</a>
+          <div class="topbar-right">
+            <el-tag type="danger" size="small">管理员</el-tag>
+            <el-avatar size="small" style="background:#f56c6c;">管</el-avatar>
+            <span class="text-sm text-gray-600">管理员</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="admin-layout">
+        <div class="admin-sidebar">
+          <el-menu default-active="dashboard" style="border:0;">
+            <el-menu-item index="dashboard" @click="go('admin-dashboard.html')">
+              <span style="margin-right:8px;">📊</span>数据概览
+            </el-menu-item>
+            <el-menu-item index="review" @click="go('admin-review.html')">
+              <span style="margin-right:8px;">✅</span>信息审核
+            </el-menu-item>
+            <el-menu-item index="users">
+              <span style="margin-right:8px;">👥</span>用户管理
+            </el-menu-item>
+            <el-menu-item index="reports">
+              <span style="margin-right:8px;">🚩</span>举报处理
+            </el-menu-item>
+            <el-menu-item index="settings">
+              <span style="margin-right:8px;">⚙️</span>系统设置
+            </el-menu-item>
+          </el-menu>
+        </div>
+
+        <div class="admin-main">
+          <h1 class="text-xl font-bold text-gray-800 mb-6">📊 数据概览</h1>
+
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+            <div class="stat-card">
+              <div class="text-sm text-gray-400 mb-1">今日新增</div>
+              <div class="text-2xl font-bold text-blue-500">36</div>
+              <div class="text-xs text-green-500 mt-1">↑ 12% 较昨日</div>
+            </div>
+            <div class="stat-card">
+              <div class="text-sm text-gray-400 mb-1">待审核</div>
+              <div class="text-2xl font-bold text-orange-500">8</div>
+              <div class="text-xs text-orange-500 mt-1">需尽快处理</div>
+            </div>
+            <div class="stat-card">
+              <div class="text-sm text-gray-400 mb-1">注册用户</div>
+              <div class="text-2xl font-bold text-green-500">856</div>
+              <div class="text-xs text-gray-400 mt-1">累计注册</div>
+            </div>
+            <div class="stat-card">
+              <div class="text-sm text-gray-400 mb-1">举报数量</div>
+              <div class="text-2xl font-bold text-red-500">3</div>
+              <div class="text-xs text-red-500 mt-1">2 条待处理</div>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <el-card shadow="never" style="border-radius:12px;">
+              <h3 class="font-semibold text-gray-800 mb-4">📋 最近审核记录</h3>
+              <div class="space-y-3">
+                <div v-for="r in recentReviews" :key="r.id" class="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
+                  <div>
+                    <div class="text-sm font-medium text-gray-800">{{ r.title }}</div>
+                    <div class="text-xs text-gray-400">{{ r.time }}</div>
+                  </div>
+                  <el-tag :type="r.statusTag" size="small">{{ r.status }}</el-tag>
+                </div>
+              </div>
+            </el-card>
+
+            <el-card shadow="never" style="border-radius:12px;">
+              <h3 class="font-semibold text-gray-800 mb-4">🔗 快捷入口</h3>
+              <div class="grid grid-cols-2 gap-3">
+                <el-button @click="go('admin-review.html')" style="height:60px;font-size:15px;">✅ 信息审核</el-button>
+                <el-button type="warning" style="height:60px;font-size:15px;">🚩 举报处理</el-button>
+                <el-button type="success" style="height:60px;font-size:15px;">👥 用户管理</el-button>
+                <el-button style="height:60px;font-size:15px;">⚙️ 系统设置</el-button>
+              </div>
+            </el-card>
+          </div>
+
+          <el-card shadow="never" style="border-radius:12px;">
+            <h3 class="font-semibold text-gray-800 mb-4">📈 信息类型分布</h3>
+            <div class="grid grid-cols-4 gap-4 text-center">
+              <div><div class="text-2xl font-bold text-orange-500">52</div><div class="text-xs text-gray-400">二手交易</div></div>
+              <div><div class="text-2xl font-bold text-blue-500">28</div><div class="text-xs text-gray-400">失物招领</div></div>
+              <div><div class="text-2xl font-bold text-purple-500">31</div><div class="text-xs text-gray-400">拼单搭子</div></div>
+              <div><div class="text-2xl font-bold text-green-500">17</div><div class="text-xs text-gray-400">跑腿委托</div></div>
+            </div>
+          </el-card>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+    const app = Vue.createApp({
+      data() { return {
+        recentReviews: [
+          { id: 1, title: '出闲置教材《软件工程导论》', time: '2026-06-27 10:00', status: '已通过', statusTag: 'success' },
+          { id: 2, title: '求购二手显示器', time: '2026-06-27 09:30', status: '待审核', statusTag: 'warning' },
+          { id: 3, title: '奶茶拼单 一点点', time: '2026-06-26 18:00', status: '已通过', statusTag: 'success' },
+          { id: 4, title: '索尼耳机 WH-1000XM4', time: '2026-06-26 15:20', status: '待审核', statusTag: 'warning' },
+        ]
+      };},
+      methods: { go(url) { window.location.href = url; } }
+    });
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>

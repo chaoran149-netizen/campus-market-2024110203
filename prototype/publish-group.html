@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园轻集市 - 发布拼单</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+  <link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+  <div id="app">
+    <div class="app-container">
+      <div class="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="topbar-logo">🎒 校园轻集市</a>
+          <div class="topbar-nav">
+            <el-button text @click="go('/home.html')">首页</el-button>
+            <el-button text @click="go('/category.html')">集市浏览</el-button>
+            <el-button text type="primary" @click="go('/publish.html')">发布信息</el-button>
+            <el-button text @click="go('/messages.html')">消息</el-button>
+            <el-button text @click="go('/profile.html')">个人中心</el-button>
+          </div>
+          <div class="topbar-right">
+            <el-avatar size="small" style="background:#409eff;">张</el-avatar>
+            <span class="text-sm text-gray-600">张三</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <div class="breadcrumb-wrap">
+          <el-breadcrumb>
+            <el-breadcrumb-item :to="{ path: '/home.html' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/publish.html' }">发布信息</el-breadcrumb-item>
+            <el-breadcrumb-item>发布拼单搭子</el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
+
+        <div class="form-layout">
+          <div class="form-main">
+            <el-card shadow="never" style="border-radius:12px;">
+              <h2 class="text-xl font-bold text-gray-800 mb-6">👥 发布拼单 / 搭子信息</h2>
+
+              <el-steps :active="1" align-center style="margin-bottom:32px;">
+                <el-step title="填写信息" /><el-step title="确认发布" /><el-step title="发布成功" />
+              </el-steps>
+
+              <el-form label-width="110px">
+                <el-form-item label="拼单主题" required>
+                  <el-input v-model="form.title" placeholder="如：东区食堂三楼拼奶茶，一点点" />
+                </el-form-item>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <el-form-item label="拼单类型" required>
+                    <el-select v-model="form.type" placeholder="选择类型" style="width:100%;">
+                      <el-option label="美食拼单" value="food"></el-option>
+                      <el-option label="学习搭子" value="study"></el-option>
+                      <el-option label="运动搭子" value="sport"></el-option>
+                      <el-option label="拼车出行" value="ride"></el-option>
+                      <el-option label="其他" value="other"></el-option>
+                    </el-select>
+                  </el-form-item>
+                  <el-form-item label="校区" required>
+                    <el-select v-model="form.campus" placeholder="选择校区" style="width:100%;">
+                      <el-option label="主校区" value="main"></el-option>
+                      <el-option label="东校区" value="east"></el-option>
+                      <el-option label="西校区" value="west"></el-option>
+                    </el-select>
+                  </el-form-item>
+                </div>
+
+                <div class="grid grid-cols-3 gap-4">
+                  <el-form-item label="目标人数" required>
+                    <el-input-number v-model="form.targetCount" :min="2" :max="20" style="width:100%;" />
+                  </el-form-item>
+                  <el-form-item label="已有人数">
+                    <el-input-number v-model="form.currentCount" :min="1" :max="20" style="width:100%;" />
+                  </el-form-item>
+                  <el-form-item label="截止时间" required>
+                    <el-date-picker v-model="form.deadline" type="datetime" placeholder="选择时间" style="width:100%;" />
+                  </el-form-item>
+                </div>
+
+                <div class="grid grid-cols-2 gap-4">
+                  <el-form-item label="集合地点">
+                    <el-input v-model="form.location" placeholder="如：东区食堂三楼" />
+                  </el-form-item>
+                  <el-form-item label="联系方式">
+                    <el-input v-model="form.contact" placeholder="手机号或微信" />
+                  </el-form-item>
+                </div>
+
+                <el-form-item label="详细说明">
+                  <el-input v-model="form.desc" type="textarea" :rows="4" placeholder="描述拼单的具体内容、要求、费用分摊方式等" />
+                </el-form-item>
+
+                <el-form-item>
+                  <div class="flex gap-3">
+                    <el-button type="warning" size="large" @click="submit">✏️ 发布拼单</el-button>
+                    <el-button size="large">💾 保存草稿</el-button>
+                  </div>
+                </el-form-item>
+              </el-form>
+            </el-card>
+          </div>
+          <div class="form-sidebar">
+            <el-card shadow="never" style="border-radius:12px;margin-bottom:16px;">
+              <h3 class="font-semibold text-gray-800 mb-2">📌 发布须知</h3>
+              <ul class="text-xs text-gray-500 space-y-2 pl-4" style="list-style:disc;">
+                <li>请明确拼单的费用分摊方式</li>
+                <li>截止时间到达后自动标记已截止</li>
+                <li>注意保护个人隐私信息</li>
+              </ul>
+            </el-card>
+          </div>
+        </div>
+      </div>
+      <div class="footer">校园轻集市 · 让校园生活更简单</div>
+    </div>
+  </div>
+  <script>
+    const app = Vue.createApp({
+      data() { return { form: { title: '', type: '', campus: '', targetCount: 4, currentCount: 1, deadline: '', location: '', contact: '', desc: '' } }; },
+      methods: { go(url) { window.location.href = url; }, submit() { this.$message.success('拼单发布成功！'); } }
+    });
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>

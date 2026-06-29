@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园轻集市 - 商品详情</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+  <link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+  <div id="app">
+    <div class="app-container">
+      <div class="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="topbar-logo">🎒 校园轻集市</a>
+          <div class="topbar-nav">
+            <el-button text @click="go('/home.html')">首页</el-button>
+            <el-button text type="primary" @click="go('/category.html')">集市浏览</el-button>
+            <el-button text @click="go('/publish.html')">发布信息</el-button>
+            <el-button text @click="go('/messages.html')">消息</el-button>
+            <el-button text @click="go('/profile.html')">个人中心</el-button>
+          </div>
+          <div class="topbar-right">
+            <el-avatar size="small" style="background:#409eff;">张</el-avatar>
+            <span class="text-sm text-gray-600">张三</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <!-- 面包屑 -->
+        <div class="breadcrumb-wrap">
+          <el-breadcrumb>
+            <el-breadcrumb-item :to="{ path: '/home.html' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/category.html' }">集市浏览</el-breadcrumb-item>
+            <el-breadcrumb-item>商品详情</el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
+
+        <div class="detail-layout">
+          <!-- 主内容区 -->
+          <div class="detail-main">
+            <el-card shadow="never" style="border-radius:12px;overflow:hidden;">
+              <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=900&h=500&fit=crop" alt="教材" class="w-full h-80 object-cover">
+
+              <div class="p-6">
+                <div class="tag-row">
+                  <el-tag type="warning">二手交易</el-tag>
+                  <el-tag type="info">主校区</el-tag>
+                  <el-tag>九成新</el-tag>
+                </div>
+
+                <h1 class="text-2xl font-bold text-gray-800 mt-3 mb-2">出闲置教材《软件工程导论》</h1>
+
+                <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
+                  <span>📅 2026-06-27 发布</span>
+                  <span>👁️ 152 次浏览</span>
+                  <span>⭐ 12 人收藏</span>
+                </div>
+
+                <div class="text-3xl font-bold text-red-500 mb-4">¥25</div>
+
+                <el-divider />
+
+                <h3 class="font-semibold text-gray-800 mb-2">详细描述</h3>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                  大二《软件工程导论》教材，张海藩编著。书况九成新，只有前两章有少量荧光笔标注，
+                  无缺页无破损。考试已过，现出给学弟学妹。主校区 3 号教学楼可当面交易，支持微信或支付宝。
+                  价格可小刀，诚心要的可以留言或私信。
+                </p>
+
+                <h3 class="font-semibold text-gray-800 mb-2">商品信息</h3>
+                <div class="grid grid-cols-2 gap-3 text-sm text-gray-600 mb-4">
+                  <div><span class="text-gray-400">成色：</span>九成新</div>
+                  <div><span class="text-gray-400">原价：</span>¥58</div>
+                  <div><span class="text-gray-400">交易地点：</span>主校区 3 号教学楼</div>
+                  <div><span class="text-gray-400">联系方式：</span>站内私信</div>
+                </div>
+
+                <el-divider />
+
+                <div class="flex gap-3">
+                  <el-button type="primary" size="large" @click="go('/chat.html')">💬 联系卖家</el-button>
+                  <el-button size="large">🤍 收藏</el-button>
+                  <el-button size="large" text>🚩 举报</el-button>
+                </div>
+              </div>
+            </el-card>
+
+            <!-- 相关推荐 -->
+            <h3 class="text-lg font-bold text-gray-800 mt-8 mb-4">📌 相关推荐</h3>
+            <div class="card-grid">
+              <div class="info-card p-3" @click="go('/item-detail.html')">
+                <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=250&fit=crop" alt="耳机" class="w-full h-32 object-cover rounded-lg mb-2">
+                <h4 class="font-semibold text-sm text-gray-800">索尼降噪耳机</h4>
+                <span class="text-sm font-bold text-red-500">¥1,200</span>
+              </div>
+              <div class="info-card p-3" @click="go('/item-detail.html')">
+                <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400&h=250&fit=crop" alt="自行车" class="w-full h-32 object-cover rounded-lg mb-2">
+                <h4 class="font-semibold text-sm text-gray-800">二手山地车</h4>
+                <span class="text-sm font-bold text-red-500">¥350</span>
+              </div>
+              <div class="info-card p-3" @click="go('/item-detail.html')">
+                <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=250&fit=crop" alt="显示器" class="w-full h-32 object-cover rounded-lg mb-2">
+                <h4 class="font-semibold text-sm text-gray-800">求购二手显示器</h4>
+                <span class="text-sm font-bold text-red-500">¥300</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 右侧信息栏 -->
+          <div class="detail-sidebar">
+            <el-card shadow="never" style="border-radius:12px;margin-bottom:16px;">
+              <h3 class="font-semibold text-gray-800 mb-3">发布者信息</h3>
+              <div class="flex items-center gap-3 mb-3">
+                <el-avatar size="large" style="background:#67c23a;">李</el-avatar>
+                <div>
+                  <div class="font-semibold text-gray-800">小李</div>
+                  <div class="text-xs text-gray-400">计算机学院 · 大三</div>
+                </div>
+              </div>
+              <div class="text-sm text-gray-500 mb-3">⭐ 信用分：85</div>
+              <el-button type="primary" style="width:100%;" @click="go('/chat.html')">💬 联系发布者</el-button>
+            </el-card>
+
+            <el-card shadow="never" style="border-radius:12px;margin-bottom:16px;">
+              <h3 class="font-semibold text-gray-800 mb-3">交易信息</h3>
+              <div class="text-sm text-gray-600 space-y-2">
+                <div>📍 主校区 3 号教学楼</div>
+                <div>📅 2026-06-27 发布</div>
+                <div>🔄 进行中</div>
+              </div>
+            </el-card>
+
+            <el-card shadow="never" style="border-radius:12px;">
+              <h3 class="font-semibold text-gray-800 mb-2">🔒 交易安全提醒</h3>
+              <ul class="text-xs text-gray-500 space-y-1 pl-4" style="list-style:disc;">
+                <li>尽量选择教学楼、食堂等公共区域交易</li>
+                <li>贵重物品当面验货后再付款</li>
+                <li>不要轻易泄露个人银行卡等信息</li>
+                <li>警惕异常低价的商品</li>
+              </ul>
+            </el-card>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">校园轻集市 · 让校园生活更简单</div>
+    </div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      methods: { go(url) { window.location.href = url; } }
+    });
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>

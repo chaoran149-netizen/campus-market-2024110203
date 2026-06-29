@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园轻集市 - 集市浏览</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+  <link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+  <div id="app">
+    <div class="app-container">
+      <div class="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="topbar-logo">🎒 校园轻集市</a>
+          <div class="topbar-nav">
+            <el-button text @click="go('/home.html')">首页</el-button>
+            <el-button text :type="'primary'" @click="go('/category.html')">集市浏览</el-button>
+            <el-button text @click="go('/publish.html')">发布信息</el-button>
+            <el-button text @click="go('/messages.html')">消息</el-button>
+            <el-button text @click="go('/profile.html')">个人中心</el-button>
+          </div>
+          <div class="topbar-right">
+            <el-avatar size="small" style="background:#409eff;">张</el-avatar>
+            <span class="text-sm text-gray-600">张三</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <!-- 面包屑 -->
+        <div class="breadcrumb-wrap">
+          <el-breadcrumb>
+            <el-breadcrumb-item :to="{ path: '/home.html' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>集市浏览</el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
+
+        <!-- 搜索与筛选 -->
+        <el-card shadow="never" style="border-radius:12px;margin-bottom:20px;">
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 p-2">
+            <el-input v-model="keyword" placeholder="搜索关键词..." clearable prefix-icon="Search" />
+            <el-select v-model="typeFilter" placeholder="全部分类" clearable>
+              <el-option label="全部分类" value=""></el-option>
+              <el-option label="二手交易" value="secondhand"></el-option>
+              <el-option label="失物招领" value="lostfound"></el-option>
+              <el-option label="拼单搭子" value="groupbuy"></el-option>
+              <el-option label="跑腿委托" value="errand"></el-option>
+            </el-select>
+            <el-select v-model="campusFilter" placeholder="全部校区" clearable>
+              <el-option label="全部校区" value=""></el-option>
+              <el-option label="主校区" value="main"></el-option>
+              <el-option label="东校区" value="east"></el-option>
+              <el-option label="西校区" value="west"></el-option>
+            </el-select>
+            <el-select v-model="sortBy" placeholder="排序方式">
+              <el-option label="最新发布" value="newest"></el-option>
+              <el-option label="最热门" value="hot"></el-option>
+              <el-option label="价格从低到高" value="price_asc"></el-option>
+              <el-option label="价格从高到低" value="price_desc"></el-option>
+            </el-select>
+          </div>
+        </el-card>
+
+        <!-- 信息列表 -->
+        <div class="card-grid mb-6">
+          <div class="info-card p-4" @click="go('/item-detail.html')">
+            <img src="https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=300&fit=crop" alt="教材" class="w-full h-40 object-cover rounded-lg mb-3">
+            <div class="tag-row"><el-tag size="small" type="warning">二手交易</el-tag><el-tag size="small" type="info">主校区</el-tag></div>
+            <h3 class="font-semibold text-gray-800 mb-1">出闲置教材《软件工程导论》</h3>
+            <p class="text-sm text-gray-500 mb-2">九成新，无笔记划线</p>
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-bold text-red-500">¥25</span>
+              <div class="flex items-center gap-2">
+                <el-avatar size="small" style="background:#67c23a;">李</el-avatar>
+                <span class="text-xs text-gray-400">小李</span>
+              </div>
+            </div>
+          </div>
+          <div class="info-card p-4" @click="go('/item-detail.html')">
+            <img src="https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop" alt="耳机" class="w-full h-40 object-cover rounded-lg mb-3">
+            <div class="tag-row"><el-tag size="small" type="warning">二手交易</el-tag><el-tag size="small" type="info">东校区</el-tag></div>
+            <h3 class="font-semibold text-gray-800 mb-1">索尼降噪耳机 WH-1000XM4</h3>
+            <p class="text-sm text-gray-500 mb-2">只用过三次，箱说全</p>
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-bold text-red-500">¥1,200</span>
+              <div class="flex items-center gap-2">
+                <el-avatar size="small" style="background:#e6a23c;">王</el-avatar>
+                <span class="text-xs text-gray-400">小王</span>
+              </div>
+            </div>
+          </div>
+          <div class="info-card p-4" @click="go('/lost-detail.html')">
+            <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=400&h=300&fit=crop" alt="校园卡" class="w-full h-40 object-cover rounded-lg mb-3">
+            <div class="tag-row"><el-tag size="small" type="danger">失物招领</el-tag><el-tag size="small" type="info">主校区</el-tag></div>
+            <h3 class="font-semibold text-gray-800 mb-1">拾到校园卡一张 — 李同学</h3>
+            <p class="text-sm text-gray-500 mb-2">在三食堂一楼捡到</p>
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium text-blue-500">待认领</span>
+              <div class="flex items-center gap-2">
+                <el-avatar size="small" style="background:#f56c6c;">赵</el-avatar>
+                <span class="text-xs text-gray-400">小赵</span>
+              </div>
+            </div>
+          </div>
+          <div class="info-card p-4" @click="go('/item-detail.html')">
+            <img src="https://images.unsplash.com/photo-1485955900006-10f4d324d411?w=400&h=300&fit=crop" alt="自行车" class="w-full h-40 object-cover rounded-lg mb-3">
+            <div class="tag-row"><el-tag size="small" type="warning">二手交易</el-tag><el-tag size="small" type="info">西校区</el-tag></div>
+            <h3 class="font-semibold text-gray-800 mb-1">毕业出二手山地车</h3>
+            <p class="text-sm text-gray-500 mb-2">骑了两年，保养得很好</p>
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-bold text-red-500">¥350</span>
+              <div class="flex items-center gap-2">
+                <el-avatar size="small" style="background:#409eff;">陈</el-avatar>
+                <span class="text-xs text-gray-400">小陈</span>
+              </div>
+            </div>
+          </div>
+          <div class="info-card p-4" @click="go('/group-detail.html')">
+            <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&h=300&fit=crop" alt="拼单" class="w-full h-40 object-cover rounded-lg mb-3">
+            <div class="tag-row"><el-tag size="small" color="#e6a23c" style="border:0;color:#fff;">拼单搭子</el-tag><el-tag size="small" type="info">东校区</el-tag></div>
+            <h3 class="font-semibold text-gray-800 mb-1">东区食堂三楼拼奶茶，一点点</h3>
+            <p class="text-sm text-gray-500 mb-2">满 20 起送，还差 2 人</p>
+            <div class="flex items-center justify-between">
+              <span class="text-sm text-gray-500">⏰ 截止 18:00</span>
+              <div class="flex items-center gap-2">
+                <el-avatar size="small" style="background:#67c23a;">刘</el-avatar>
+                <span class="text-xs text-gray-400">小刘</span>
+              </div>
+            </div>
+          </div>
+          <div class="info-card p-4" @click="go('/task-detail.html')">
+            <img src="https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=400&h=300&fit=crop" alt="跑腿" class="w-full h-40 object-cover rounded-lg mb-3">
+            <div class="tag-row"><el-tag size="small" type="success">跑腿委托</el-tag><el-tag size="small" type="info">主校区</el-tag></div>
+            <h3 class="font-semibold text-gray-800 mb-1">求帮取快递到 6 栋宿舍</h3>
+            <p class="text-sm text-gray-500 mb-2">菜鸟驿站小件，送到楼下</p>
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-bold text-red-500">¥5</span>
+              <div class="flex items-center gap-2">
+                <el-avatar size="small" style="background:#e6a23c;">周</el-avatar>
+                <span class="text-xs text-gray-400">小周</span>
+              </div>
+            </div>
+          </div>
+          <div class="info-card p-4" @click="go('/lost-detail.html')">
+            <img src="https://images.unsplash.com/photo-1592899677977-9c10ca588bbd?w=400&h=300&fit=crop" alt="耳机盒" class="w-full h-40 object-cover rounded-lg mb-3">
+            <div class="tag-row"><el-tag size="small" type="danger">失物招领</el-tag><el-tag size="small" type="info">西校区</el-tag></div>
+            <h3 class="font-semibold text-gray-800 mb-1">西门打印店附近丢失黑色耳机盒</h3>
+            <p class="text-sm text-gray-500 mb-2">AirPods Pro 耳机盒，有贴纸</p>
+            <div class="flex items-center justify-between">
+              <span class="text-sm font-medium text-red-500">寻找中</span>
+              <div class="flex items-center gap-2">
+                <el-avatar size="small" style="background:#409eff;">吴</el-avatar>
+                <span class="text-xs text-gray-400">小吴</span>
+              </div>
+            </div>
+          </div>
+          <div class="info-card p-4" @click="go('/item-detail.html')">
+            <img src="https://images.unsplash.com/photo-1496181133206-80ce9b88a853?w=400&h=300&fit=crop" alt="显示器" class="w-full h-40 object-cover rounded-lg mb-3">
+            <div class="tag-row"><el-tag size="small" type="warning">二手交易</el-tag><el-tag size="small" type="info">主校区</el-tag></div>
+            <h3 class="font-semibold text-gray-800 mb-1">求购二手显示器，预算 300 以内</h3>
+            <p class="text-sm text-gray-500 mb-2">24寸以上，有 dp 接口</p>
+            <div class="flex items-center justify-between">
+              <span class="text-lg font-bold text-red-500">¥300</span>
+              <div class="flex items-center gap-2">
+                <el-avatar size="small" style="background:#f56c6c;">郑</el-avatar>
+                <span class="text-xs text-gray-400">小郑</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 分页 -->
+        <div class="flex justify-center my-6">
+          <el-pagination background layout="prev, pager, next" :total="48" />
+        </div>
+      </div>
+
+      <div class="footer">校园轻集市 · 让校园生活更简单</div>
+    </div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return { keyword: '', typeFilter: '', campusFilter: '', sortBy: 'newest' };
+      },
+      methods: {
+        go(url) { window.location.href = url; }
+      }
+    });
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>

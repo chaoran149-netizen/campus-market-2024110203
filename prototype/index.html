@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园轻集市 - 原型入口</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+  <link rel="stylesheet" href="assets/common.css">
+  <style>
+    .entry-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; margin-top: 24px; }
+    .entry-card { background: #fff; border-radius: 8px; padding: 20px; text-align: center; box-shadow: 0 2px 8px rgba(0,0,0,0.06); text-decoration: none; color: #303133; transition: all 0.2s; border: 1px solid #e4e7ed; }
+    .entry-card:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(0,0,0,0.1); border-color: #409eff; }
+    .entry-card .icon { font-size: 32px; margin-bottom: 8px; }
+    .entry-card .label { font-size: 14px; font-weight: 600; }
+    .section-title { font-size: 18px; font-weight: 700; margin: 32px 0 16px; color: #303133; display: flex; align-items: center; gap: 8px; }
+    .section-title:first-of-type { margin-top: 0; }
+  </style>
+</head>
+<body>
+  <div id="app">
+    <div class="app-container">
+      <div class="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="topbar-logo">🎒 校园轻集市</a>
+          <span style="font-size:13px;color:#909399;">原型设计入口</span>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <el-card style="margin-top: 24px; text-align: center; padding: 40px 20px;">
+          <h1 style="margin:0 0 8px;font-size:28px;">🎒 校园轻集市</h1>
+          <p style="color:#909399;margin:0;">面向高校校园生活服务的前端原型 · 高保真 HTML 原型</p>
+        </el-card>
+
+        <h2 class="section-title">📱 核心业务页面</h2>
+        <div class="entry-grid">
+          <a href="home.html" class="entry-card"><div class="icon">🏠</div><div class="label">首页</div></a>
+          <a href="category.html" class="entry-card"><div class="icon">📋</div><div class="label">分类浏览</div></a>
+          <a href="item-detail.html" class="entry-card"><div class="icon">📦</div><div class="label">商品详情</div></a>
+          <a href="lost-detail.html" class="entry-card"><div class="icon">🔍</div><div class="label">失物详情</div></a>
+          <a href="group-detail.html" class="entry-card"><div class="icon">👥</div><div class="label">拼单详情</div></a>
+          <a href="task-detail.html" class="entry-card"><div class="icon">🏃</div><div class="label">任务详情</div></a>
+        </div>
+
+        <h2 class="section-title">✏️ 信息发布</h2>
+        <div class="entry-grid">
+          <a href="publish.html" class="entry-card"><div class="icon">📤</div><div class="label">发布选择</div></a>
+          <a href="publish-item.html" class="entry-card"><div class="icon">♻️</div><div class="label">发布二手</div></a>
+          <a href="publish-lost.html" class="entry-card"><div class="icon">🔎</div><div class="label">发布失物</div></a>
+          <a href="publish-group.html" class="entry-card"><div class="icon">🧑‍🤝‍🧑</div><div class="label">发布拼单</div></a>
+          <a href="publish-task.html" class="entry-card"><div class="icon">📮</div><div class="label">发布跑腿</div></a>
+        </div>
+
+        <h2 class="section-title">💬 消息系统</h2>
+        <div class="entry-grid">
+          <a href="messages.html" class="entry-card"><div class="icon">💬</div><div class="label">消息列表</div></a>
+          <a href="chat.html" class="entry-card"><div class="icon">🗨️</div><div class="label">聊天详情</div></a>
+        </div>
+
+        <h2 class="section-title">👤 个人中心</h2>
+        <div class="entry-grid">
+          <a href="profile.html" class="entry-card"><div class="icon">👤</div><div class="label">个人中心</div></a>
+          <a href="my-posts.html" class="entry-card"><div class="icon">📄</div><div class="label">我的发布</div></a>
+          <a href="favorites.html" class="entry-card"><div class="icon">❤️</div><div class="label">我的收藏</div></a>
+          <a href="settings.html" class="entry-card"><div class="icon">⚙️</div><div class="label">账号设置</div></a>
+        </div>
+
+        <h2 class="section-title">🔐 账号相关</h2>
+        <div class="entry-grid">
+          <a href="login.html" class="entry-card"><div class="icon">🔑</div><div class="label">登录</div></a>
+          <a href="register.html" class="entry-card"><div class="icon">📝</div><div class="label">注册</div></a>
+        </div>
+
+        <h2 class="section-title">⚙️ 管理端</h2>
+        <div class="entry-grid">
+          <a href="admin-dashboard.html" class="entry-card"><div class="icon">📊</div><div class="label">管理首页</div></a>
+          <a href="admin-review.html" class="entry-card"><div class="icon">✅</div><div class="label">信息审核</div></a>
+        </div>
+      </div>
+
+      <div class="footer">校园轻集市 · 前端原型设计 · 课程实训项目</div>
+    </div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({});
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>

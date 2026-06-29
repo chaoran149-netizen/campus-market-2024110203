@@ -18,15 +18,15 @@
 
 .app-main {
   flex: 1;
-  padding: 24px 32px;
-  max-width: 960px;
+  padding: 32px var(--content-padding) 64px;
+  max-width: var(--content-width);
   width: 100%;
   margin: 0 auto;
 }
 
 @media (max-width: 640px) {
   .app-main {
-    padding: 16px;
+    padding: 20px 16px 48px;
   }
 }
 </style>

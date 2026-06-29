@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园轻集市 - 跑腿详情</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+  <link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+  <div id="app">
+    <div class="app-container">
+      <div class="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="topbar-logo">🎒 校园轻集市</a>
+          <div class="topbar-nav">
+            <el-button text @click="go('/home.html')">首页</el-button>
+            <el-button text type="primary" @click="go('/category.html')">集市浏览</el-button>
+            <el-button text @click="go('/publish.html')">发布信息</el-button>
+            <el-button text @click="go('/messages.html')">消息</el-button>
+            <el-button text @click="go('/profile.html')">个人中心</el-button>
+          </div>
+          <div class="topbar-right">
+            <el-avatar size="small" style="background:#409eff;">张</el-avatar>
+            <span class="text-sm text-gray-600">张三</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <div class="breadcrumb-wrap">
+          <el-breadcrumb>
+            <el-breadcrumb-item :to="{ path: '/home.html' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/category.html' }">集市浏览</el-breadcrumb-item>
+            <el-breadcrumb-item>跑腿详情</el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
+
+        <div class="detail-layout">
+          <div class="detail-main">
+            <el-card shadow="never" style="border-radius:12px;overflow:hidden;">
+              <img src="https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=900&h=500&fit=crop" alt="跑腿" class="w-full h-80 object-cover">
+              <div class="p-6">
+                <div class="tag-row">
+                  <el-tag type="success">跑腿委托</el-tag>
+                  <el-tag type="info">主校区</el-tag>
+                  <el-tag>进行中</el-tag>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-800 mt-3 mb-2">求帮取快递到 6 栋宿舍</h1>
+                <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
+                  <span>📅 2026-06-27 发布</span>
+                  <span>👁️ 45 次浏览</span>
+                </div>
+                <div class="text-3xl font-bold text-green-500 mb-4">¥5 酬劳</div>
+                <el-divider />
+                <h3 class="font-semibold text-gray-800 mb-2">任务详情</h3>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                  下午有个快递到了菜鸟驿站，小件包裹，是教材。我下午有课走不开，
+                  希望有同学能帮忙取一下送到 6 栋宿舍楼下。到了发消息我下楼拿，谢谢！
+                </p>
+                <h3 class="font-semibold text-gray-800 mb-2">任务信息</h3>
+                <div class="grid grid-cols-2 gap-3 text-sm text-gray-600 mb-4">
+                  <div><span class="text-gray-400">取件地点：</span>菜鸟驿站（主校区）</div>
+                  <div><span class="text-gray-400">送达地点：</span>6 栋宿舍楼下</div>
+                  <div><span class="text-gray-400">期望完成时间：</span>今天 18:00 前</div>
+                  <div><span class="text-gray-400">酬劳：</span>¥5 微信转账</div>
+                </div>
+                <el-divider />
+                <div class="flex gap-3">
+                  <el-button type="success" size="large">🙋 我要接单</el-button>
+                  <el-button size="large" @click="go('/chat.html')">💬 联系发布者</el-button>
+                  <el-button size="large">🤍 收藏</el-button>
+                </div>
+              </div>
+            </el-card>
+          </div>
+
+          <div class="detail-sidebar">
+            <el-card shadow="never" style="border-radius:12px;margin-bottom:16px;">
+              <h3 class="font-semibold text-gray-800 mb-3">发布者信息</h3>
+              <div class="flex items-center gap-3 mb-3">
+                <el-avatar size="large" style="background:#e6a23c;">周</el-avatar>
+                <div>
+                  <div class="font-semibold text-gray-800">小周</div>
+                  <div class="text-xs text-gray-400">信息学院 · 大二</div>
+                </div>
+              </div>
+              <el-button type="success" style="width:100%;" @click="go('/chat.html')">💬 联系发布者</el-button>
+            </el-card>
+            <el-card shadow="never" style="border-radius:12px;">
+              <h3 class="font-semibold text-gray-800 mb-2">📋 任务要求</h3>
+              <ul class="text-xs text-gray-500 space-y-1 pl-4" style="list-style:disc;">
+                <li>小件快递，无需交通工具</li>
+                <li>取件码下单后私信提供</li>
+                <li>送到宿舍楼下即可</li>
+              </ul>
+            </el-card>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">校园轻集市 · 让校园生活更简单</div>
+    </div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      methods: { go(url) { window.location.href = url; } }
+    });
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>

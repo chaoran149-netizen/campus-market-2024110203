@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园轻集市 - 拼单详情</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+  <link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+  <div id="app">
+    <div class="app-container">
+      <div class="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="topbar-logo">🎒 校园轻集市</a>
+          <div class="topbar-nav">
+            <el-button text @click="go('/home.html')">首页</el-button>
+            <el-button text type="primary" @click="go('/category.html')">集市浏览</el-button>
+            <el-button text @click="go('/publish.html')">发布信息</el-button>
+            <el-button text @click="go('/messages.html')">消息</el-button>
+            <el-button text @click="go('/profile.html')">个人中心</el-button>
+          </div>
+          <div class="topbar-right">
+            <el-avatar size="small" style="background:#409eff;">张</el-avatar>
+            <span class="text-sm text-gray-600">张三</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <div class="breadcrumb-wrap">
+          <el-breadcrumb>
+            <el-breadcrumb-item :to="{ path: '/home.html' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/category.html' }">集市浏览</el-breadcrumb-item>
+            <el-breadcrumb-item>拼单详情</el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
+
+        <div class="detail-layout">
+          <div class="detail-main">
+            <el-card shadow="never" style="border-radius:12px;overflow:hidden;">
+              <img src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=900&h=500&fit=crop" alt="拼单" class="w-full h-80 object-cover">
+              <div class="p-6">
+                <div class="tag-row">
+                  <el-tag color="#e6a23c" style="border:0;color:#fff;">拼单搭子</el-tag>
+                  <el-tag type="info">东校区</el-tag>
+                  <el-tag>进行中</el-tag>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-800 mt-3 mb-2">东区食堂三楼拼奶茶！一点点</h1>
+                <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
+                  <span>📅 2026-06-27 发布</span>
+                  <span>👁️ 89 次浏览</span>
+                </div>
+
+                <div class="bg-orange-50 rounded-lg p-4 mb-4 flex items-center gap-6">
+                  <div class="text-center">
+                    <div class="text-2xl font-bold text-orange-500">3</div>
+                    <div class="text-xs text-gray-500">已参与</div>
+                  </div>
+                  <div class="text-gray-300 text-xl">/</div>
+                  <div class="text-center">
+                    <div class="text-2xl font-bold text-gray-800">5</div>
+                    <div class="text-xs text-gray-500">目标人数</div>
+                  </div>
+                  <div class="flex-1">
+                    <el-progress :percentage="60" color="#e6a23c" />
+                  </div>
+                </div>
+
+                <el-divider />
+                <h3 class="font-semibold text-gray-800 mb-2">拼单详情</h3>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                  想喝一点点奶茶的看过来！东区食堂三楼的奶茶店，满 20 元起送。
+                  目前已有 3 人，还差 2 人就能发车啦！要的滴滴我，统一下午六点前下单。
+                </p>
+
+                <h3 class="font-semibold text-gray-800 mb-2">拼单信息</h3>
+                <div class="grid grid-cols-2 gap-3 text-sm text-gray-600 mb-4">
+                  <div><span class="text-gray-400">集合地点：</span>东区食堂三楼</div>
+                  <div><span class="text-gray-400">截止时间：</span>2026-06-27 18:00</div>
+                  <div><span class="text-gray-400">人均预估：</span>¥10-15</div>
+                  <div><span class="text-gray-400">状态：</span>进行中</div>
+                </div>
+
+                <el-divider />
+                <div class="flex gap-3">
+                  <el-button type="warning" size="large">🙋 我要参与</el-button>
+                  <el-button size="large" @click="go('/chat.html')">💬 联系发起人</el-button>
+                  <el-button size="large">🤍 收藏</el-button>
+                </div>
+              </div>
+            </el-card>
+          </div>
+
+          <div class="detail-sidebar">
+            <el-card shadow="never" style="border-radius:12px;margin-bottom:16px;">
+              <h3 class="font-semibold text-gray-800 mb-3">发起人信息</h3>
+              <div class="flex items-center gap-3 mb-3">
+                <el-avatar size="large" style="background:#67c23a;">刘</el-avatar>
+                <div>
+                  <div class="font-semibold text-gray-800">小刘</div>
+                  <div class="text-xs text-gray-400">外国语学院 · 大二</div>
+                </div>
+              </div>
+              <el-button type="warning" style="width:100%;" @click="go('/chat.html')">💬 联系发起人</el-button>
+            </el-card>
+            <el-card shadow="never" style="border-radius:12px;">
+              <h3 class="font-semibold text-gray-800 mb-2">⏰ 拼单倒计时</h3>
+              <div class="text-center py-3">
+                <div class="text-2xl font-bold text-orange-500">05:28:13</div>
+                <div class="text-xs text-gray-400 mt-1">剩余时间</div>
+              </div>
+            </el-card>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">校园轻集市 · 让校园生活更简单</div>
+    </div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      methods: { go(url) { window.location.href = url; } }
+    });
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>

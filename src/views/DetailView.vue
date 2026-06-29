@@ -59,30 +59,30 @@ const item = items[Number(route.params.id)] || items[1]
 }
 
 .back-btn {
-  background: #FFFDF5;
-  border: 2.5px solid var(--doodle-border);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
   padding: 8px 18px;
-  border-radius: var(--doodle-radius);
+  border-radius: var(--radius-md);
   cursor: pointer;
   font-family: inherit;
   font-size: 14px;
   font-weight: 700;
-  color: var(--doodle-text);
+  color: var(--color-text);
   margin-bottom: 16px;
   transition: all 0.15s;
 }
 
 .back-btn:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 3px 3px 0px var(--doodle-border);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .detail-card {
-  border: 3px solid var(--doodle-border);
-  border-radius: 24px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
   padding: 28px 24px;
-  background: #FFFDF5;
-  box-shadow: 6px 6px 0px var(--doodle-border);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-md);
 }
 
 .detail-emoji {
@@ -93,10 +93,10 @@ const item = items[Number(route.params.id)] || items[1]
 
 .detail-title {
   font-size: 22px;
-  font-weight: 900;
+  font-weight: 700;
   text-align: center;
   margin-bottom: 12px;
-  color: var(--doodle-text);
+  color: var(--color-text);
 }
 
 .detail-tags {
@@ -113,16 +113,16 @@ const item = items[Number(route.params.id)] || items[1]
   font-weight: 700;
 }
 
-.tag-type { background: #FEF3C7; color: #A16207; border: 1.5px solid #D97706; }
+.tag-type { background: var(--color-primary-light); color: var(--color-text-secondary); border: 1.5px solid var(--color-border); }
 .tag-campus { background: #E0F2FE; color: #0369A1; border: 1.5px solid #38BDF8; }
-.tag-price { background: #FEE2E2; color: #DC2626; border: 1.5px solid #EF4444; font-size: 14px; }
+.tag-price { background: #FEE2E2; color: #DC2626; border: 1.5px solid var(--color-primary); font-size: 14px; }
 
 .detail-meta {
   display: flex;
   justify-content: center;
   gap: 16px;
   font-size: 13px;
-  color: #A16207;
+  color: var(--color-text-secondary);
   margin-bottom: 16px;
   flex-wrap: wrap;
 }
@@ -132,8 +132,8 @@ const item = items[Number(route.params.id)] || items[1]
   line-height: 1.8;
   color: #5C4A2E;
   padding: 16px;
-  background: #FFFBEB;
-  border-radius: var(--doodle-radius);
+  background: var(--color-accent-light);
+  border-radius: var(--radius-md);
   margin-bottom: 16px;
 }
 
@@ -147,10 +147,10 @@ const item = items[Number(route.params.id)] || items[1]
 .tag-simple {
   font-size: 12px;
   padding: 4px 12px;
-  border: 2px dashed var(--doodle-yellow);
+  border: 1px dashed var(--color-primary);
   border-radius: 14px;
-  color: #92400E;
-  background: #FFFBEB;
+  color: var(--color-text-secondary);
+  background: var(--color-accent-light);
 }
 
 .detail-actions {
@@ -163,34 +163,34 @@ const item = items[Number(route.params.id)] || items[1]
   flex: 1;
   min-width: 120px;
   padding: 10px 16px;
-  border: 2.5px solid var(--doodle-border);
-  border-radius: var(--doodle-radius);
-  background: #FFFDF5;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
   font-family: inherit;
   font-size: 14px;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.15s;
-  color: var(--doodle-text);
+  color: var(--color-text);
 }
 
 .action-btn:hover {
-  transform: translate(-2px, -2px);
-  box-shadow: 4px 4px 0px var(--doodle-border);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-sm);
 }
 
 .action-btn.favorite.liked {
   background: #FEE2E2;
-  border-color: #EF4444;
+  border-color: var(--color-primary);
   color: #DC2626;
 }
 
 .action-btn.contact {
-  background: var(--doodle-cream);
+  background: var(--color-primary-light);
 }
 
 .action-btn.bargain {
-  background: #FFFBEB;
-  border-color: var(--doodle-yellow);
+  background: var(--color-accent-light);
+  border-color: var(--color-primary);
 }
 </style>

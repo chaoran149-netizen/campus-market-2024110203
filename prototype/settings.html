@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园轻集市 - 账号设置</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+  <link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+  <div id="app">
+    <div class="app-container">
+      <div class="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="topbar-logo">🎒 校园轻集市</a>
+          <div class="topbar-nav">
+            <el-button text @click="go('home.html')">首页</el-button>
+            <el-button text @click="go('category.html')">集市浏览</el-button>
+            <el-button text @click="go('publish.html')">发布信息</el-button>
+            <el-button text @click="go('messages.html')">消息</el-button>
+            <el-button text type="primary" @click="go('profile.html')">个人中心</el-button>
+          </div>
+          <div class="topbar-right">
+            <el-avatar size="small" style="background:#409eff;">张</el-avatar>
+            <span class="text-sm text-gray-600">张三</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <el-breadcrumb separator="/" style="margin-bottom:16px;">
+          <el-breadcrumb-item :to="{ path: 'home.html' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: 'profile.html' }">个人中心</el-breadcrumb-item>
+          <el-breadcrumb-item>账号设置</el-breadcrumb-item>
+        </el-breadcrumb>
+
+        <div class="form-layout">
+          <div class="form-main">
+            <el-card shadow="never" style="border-radius:12px;">
+              <h2 class="text-xl font-bold text-gray-800 mb-6">⚙️ 账号设置</h2>
+              <el-tabs v-model="tab">
+                <el-tab-pane label="个人资料" name="profile">
+                  <el-form label-width="100px">
+                    <el-form-item label="头像">
+                      <div class="flex items-center gap-3">
+                        <el-avatar :size="64" style="background:#409eff;font-size:24px;">张</el-avatar>
+                        <el-button size="small">更换头像</el-button>
+                      </div>
+                    </el-form-item>
+                    <el-form-item label="昵称"><el-input v-model="form.nickname" /></el-form-item>
+                    <el-form-item label="学院"><el-input v-model="form.college" /></el-form-item>
+                    <el-form-item label="校区">
+                      <el-select v-model="form.campus" style="width:100%;"><el-option label="主校区" value="main"></el-option><el-option label="东校区" value="east"></el-option><el-option label="西校区" value="west"></el-option></el-select>
+                    </el-form-item>
+                    <el-form-item label="年级"><el-select v-model="form.grade" style="width:100%;"><el-option label="大一" value="1"></el-option><el-option label="大二" value="2"></el-option><el-option label="大三" value="3"></el-option><el-option label="大四" value="4"></el-option></el-select></el-form-item>
+                    <el-form-item label="个人简介"><el-input v-model="form.bio" type="textarea" :rows="3" placeholder="介绍一下你自己" /></el-form-item>
+                    <el-form-item><el-button type="primary" @click="save">保存修改</el-button></el-form-item>
+                  </el-form>
+                </el-tab-pane>
+                <el-tab-pane label="账号安全" name="security">
+                  <el-form label-width="120px">
+                    <el-form-item label="当前密码"><el-input type="password" /></el-form-item>
+                    <el-form-item label="新密码"><el-input type="password" /></el-form-item>
+                    <el-form-item label="确认新密码"><el-input type="password" /></el-form-item>
+                    <el-form-item><el-button type="primary">修改密码</el-button></el-form-item>
+                  </el-form>
+                </el-tab-pane>
+                <el-tab-pane label="通知设置" name="notify">
+                  <el-form label-width="140px">
+                    <el-form-item label="新消息提醒"><el-switch v-model="notify.msg" /></el-form-item>
+                    <el-form-item label="收藏状态更新"><el-switch v-model="notify.fav" /></el-form-item>
+                    <el-form-item label="系统通知"><el-switch v-model="notify.system" /></el-form-item>
+                  </el-form>
+                </el-tab-pane>
+              </el-tabs>
+            </el-card>
+          </div>
+          <div class="form-sidebar">
+            <el-card shadow="never" style="border-radius:12px;">
+              <h3 class="font-semibold text-gray-800 mb-2">🔒 账号信息</h3>
+              <div class="text-xs text-gray-500 space-y-2">
+                <div>注册时间：2026-06-20</div>
+                <div>上次登录：2026-06-27 10:00</div>
+                <div>身份认证：未实名</div>
+              </div>
+            </el-card>
+          </div>
+        </div>
+      </div>
+      <div class="footer">校园轻集市 · 让校园生活更简单</div>
+    </div>
+  </div>
+  <script>
+    const app = Vue.createApp({
+      data() { return {
+        tab: 'profile',
+        form: { nickname: '张三', college: '计算机学院', campus: 'main', grade: '3', bio: '大三老学长，欢迎来逛~' },
+        notify: { msg: true, fav: true, system: true }
+      };},
+      methods: {
+        go(url) { window.location.href = url; },
+        save() { this.$message.success('资料已更新'); }
+      }
+    });
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>

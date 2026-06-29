@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园轻集市 - 失物详情</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+  <link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+  <div id="app">
+    <div class="app-container">
+      <div class="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="topbar-logo">🎒 校园轻集市</a>
+          <div class="topbar-nav">
+            <el-button text @click="go('/home.html')">首页</el-button>
+            <el-button text type="primary" @click="go('/category.html')">集市浏览</el-button>
+            <el-button text @click="go('/publish.html')">发布信息</el-button>
+            <el-button text @click="go('/messages.html')">消息</el-button>
+            <el-button text @click="go('/profile.html')">个人中心</el-button>
+          </div>
+          <div class="topbar-right">
+            <el-avatar size="small" style="background:#409eff;">张</el-avatar>
+            <span class="text-sm text-gray-600">张三</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <div class="breadcrumb-wrap">
+          <el-breadcrumb>
+            <el-breadcrumb-item :to="{ path: '/home.html' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item :to="{ path: '/category.html' }">集市浏览</el-breadcrumb-item>
+            <el-breadcrumb-item>失物详情</el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
+
+        <div class="detail-layout">
+          <div class="detail-main">
+            <el-card shadow="never" style="border-radius:12px;overflow:hidden;">
+              <img src="https://images.unsplash.com/photo-1579783902614-a3fb3927b6a5?w=900&h=500&fit=crop" alt="校园卡" class="w-full h-80 object-cover">
+              <div class="p-6">
+                <div class="tag-row">
+                  <el-tag type="danger">失物招领</el-tag>
+                  <el-tag type="info">主校区</el-tag>
+                  <el-tag>已捡到</el-tag>
+                </div>
+                <h1 class="text-2xl font-bold text-gray-800 mt-3 mb-2">拾到校园卡一张 —— 李同学</h1>
+                <div class="flex items-center gap-4 text-sm text-gray-400 mb-4">
+                  <span>📅 2026-06-27 发布</span>
+                  <span>👁️ 68 次浏览</span>
+                </div>
+                <el-divider />
+                <h3 class="font-semibold text-gray-800 mb-2">物品描述</h3>
+                <p class="text-gray-600 leading-relaxed mb-4">
+                  今天中午在三食堂一楼靠窗位置捡到校园卡一张。卡上姓名：李**，学号 2024******，
+                  计算机学院。请失主看到后联系我认领，麻烦带上学生证或其他身份证明。
+                </p>
+                <h3 class="font-semibold text-gray-800 mb-2">详细信息</h3>
+                <div class="grid grid-cols-2 gap-3 text-sm text-gray-600 mb-4">
+                  <div><span class="text-gray-400">类型：</span>拾到物品</div>
+                  <div><span class="text-gray-400">拾到地点：</span>三食堂一楼</div>
+                  <div><span class="text-gray-400">拾到时间：</span>2026-06-27 12:30</div>
+                  <div><span class="text-gray-400">状态：</span>待认领</div>
+                </div>
+                <el-divider />
+                <div class="flex gap-3">
+                  <el-button type="primary" size="large" @click="go('/chat.html')">💬 联系发布者</el-button>
+                  <el-button size="large">🤍 收藏</el-button>
+                </div>
+              </div>
+            </el-card>
+          </div>
+
+          <div class="detail-sidebar">
+            <el-card shadow="never" style="border-radius:12px;margin-bottom:16px;">
+              <h3 class="font-semibold text-gray-800 mb-3">发布者信息</h3>
+              <div class="flex items-center gap-3 mb-3">
+                <el-avatar size="large" style="background:#f56c6c;">赵</el-avatar>
+                <div>
+                  <div class="font-semibold text-gray-800">小赵</div>
+                  <div class="text-xs text-gray-400">计算机学院 · 大二</div>
+                </div>
+              </div>
+              <el-button type="primary" style="width:100%;" @click="go('/chat.html')">💬 联系我认领</el-button>
+            </el-card>
+            <el-card shadow="never" style="border-radius:12px;">
+              <h3 class="font-semibold text-gray-800 mb-2">🔒 安全提醒</h3>
+              <ul class="text-xs text-gray-500 space-y-1 pl-4" style="list-style:disc;">
+                <li>认领时请出示有效身份证明</li>
+                <li>尽量在公共区域进行交接</li>
+                <li>不要向陌生人透露过多个人信息</li>
+              </ul>
+            </el-card>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer">校园轻集市 · 让校园生活更简单</div>
+    </div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      methods: { go(url) { window.location.href = url; } }
+    });
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>

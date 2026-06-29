@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园轻集市 - 消息列表</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+  <link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+  <div id="app">
+    <div class="app-container">
+      <div class="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="topbar-logo">🎒 校园轻集市</a>
+          <div class="topbar-nav">
+            <el-button text @click="go('/home.html')">首页</el-button>
+            <el-button text @click="go('/category.html')">集市浏览</el-button>
+            <el-button text @click="go('/publish.html')">发布信息</el-button>
+            <el-button text type="primary" @click="go('/messages.html')">消息</el-button>
+            <el-button text @click="go('/profile.html')">个人中心</el-button>
+          </div>
+          <div class="topbar-right">
+            <el-avatar size="small" style="background:#409eff;">张</el-avatar>
+            <span class="text-sm text-gray-600">张三</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <div class="breadcrumb-wrap">
+          <el-breadcrumb>
+            <el-breadcrumb-item :to="{ path: '/home.html' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>消息中心</el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
+
+        <div class="flex items-center justify-between mb-4">
+          <h1 class="text-xl font-bold text-gray-800">💬 消息中心</h1>
+          <el-input v-model="search" placeholder="搜索联系人..." prefix-icon="Search" style="width:240px;" />
+        </div>
+
+        <el-card shadow="never" style="border-radius:12px;">
+          <div v-for="(conv, idx) in conversations" :key="conv.id" style="border-bottom: 1px solid #f0f0f0; cursor:pointer;" :style="idx === conversations.length - 1 ? '' : ''" @click="go('/chat.html')">
+            <div class="flex items-center gap-3 p-4 hover:bg-gray-50 transition-colors">
+              <el-avatar :size="48" :style="{ background: conv.color }">{{ conv.initial }}</el-avatar>
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center justify-between">
+                  <span class="font-semibold text-gray-800">{{ conv.name }}</span>
+                  <span class="text-xs text-gray-400">{{ conv.time }}</span>
+                </div>
+                <div class="flex items-center justify-between mt-1">
+                  <span class="text-sm text-gray-500 truncate max-w-[300px]">{{ conv.lastMsg }}</span>
+                  <el-badge v-if="conv.unread" :value="conv.unread" class="ml-2" />
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div v-if="!conversations.length" class="empty-state">
+            <el-empty description="暂无消息，去集市逛逛吧" />
+          </div>
+        </el-card>
+      </div>
+      <div class="footer">校园轻集市 · 让校园生活更简单</div>
+    </div>
+  </div>
+  <script>
+    const app = Vue.createApp({
+      data() {
+        return {
+          search: '',
+          conversations: [
+            { id: 1, name: '小李', initial: '李', color: '#67c23a', lastMsg: '教材还在吗？我想看看', unread: 2, time: '10:32' },
+            { id: 2, name: '小赵', initial: '赵', color: '#f56c6c', lastMsg: '好的，我在三食堂', unread: 0, time: '昨天' },
+            { id: 3, name: '小刘', initial: '刘', color: '#e6a23c', lastMsg: '明天下午三点可以吗？', unread: 1, time: '昨天' },
+            { id: 4, name: '小王', initial: '王', color: '#409eff', lastMsg: '耳机已出，谢谢关注', unread: 0, time: '6/26' },
+            { id: 5, name: '小周', initial: '周', color: '#909399', lastMsg: '快递取到了，放楼下了', unread: 0, time: '6/25' },
+          ]
+        };
+      },
+      methods: { go(url) { window.location.href = url; } }
+    });
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>

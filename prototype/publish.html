@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园轻集市 - 发布信息</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+  <link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+  <div id="app">
+    <div class="app-container">
+      <div class="topbar">
+        <div class="topbar-inner">
+          <a href="index.html" class="topbar-logo">🎒 校园轻集市</a>
+          <div class="topbar-nav">
+            <el-button text @click="go('/home.html')">首页</el-button>
+            <el-button text @click="go('/category.html')">集市浏览</el-button>
+            <el-button text type="primary" @click="go('/publish.html')">发布信息</el-button>
+            <el-button text @click="go('/messages.html')">消息</el-button>
+            <el-button text @click="go('/profile.html')">个人中心</el-button>
+          </div>
+          <div class="topbar-right">
+            <el-avatar size="small" style="background:#409eff;">张</el-avatar>
+            <span class="text-sm text-gray-600">张三</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="page-content">
+        <div class="breadcrumb-wrap">
+          <el-breadcrumb>
+            <el-breadcrumb-item :to="{ path: '/home.html' }">首页</el-breadcrumb-item>
+            <el-breadcrumb-item>发布信息</el-breadcrumb-item>
+          </el-breadcrumb>
+        </div>
+
+        <div class="text-center mb-8">
+          <h1 class="text-2xl font-bold text-gray-800">✏️ 选择你要发布的信息类型</h1>
+          <p class="text-gray-400 mt-2">不同类型的信息所需填写的字段不同，请按需选择</p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          <a href="publish-item.html" class="block p-8 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow no-underline text-center">
+            <span style="font-size:48px;">♻️</span>
+            <h3 class="text-lg font-bold text-gray-800 mt-3">二手交易</h3>
+            <p class="text-sm text-gray-400 mt-1">出售闲置物品，给它们找新主人</p>
+            <div class="flex gap-2 justify-center mt-3">
+              <el-tag size="small">价格</el-tag>
+              <el-tag size="small">成色</el-tag>
+              <el-tag size="small">图片</el-tag>
+            </div>
+          </a>
+          <a href="publish-lost.html" class="block p-8 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow no-underline text-center">
+            <span style="font-size:48px;">🔍</span>
+            <h3 class="text-lg font-bold text-gray-800 mt-3">失物招领</h3>
+            <p class="text-sm text-gray-400 mt-1">发布丢失或捡到的物品信息</p>
+            <div class="flex gap-2 justify-center mt-3">
+              <el-tag size="small" type="danger">丢失/捡到</el-tag>
+              <el-tag size="small" type="danger">时间地点</el-tag>
+            </div>
+          </a>
+          <a href="publish-group.html" class="block p-8 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow no-underline text-center">
+            <span style="font-size:48px;">👥</span>
+            <h3 class="text-lg font-bold text-gray-800 mt-3">拼单搭子</h3>
+            <p class="text-sm text-gray-400 mt-1">找同学一起拼单、组队、搭伙</p>
+            <div class="flex gap-2 justify-center mt-3">
+              <el-tag size="small" color="#e6a23c" style="border:0;color:#fff;">人数</el-tag>
+              <el-tag size="small" color="#e6a23c" style="border:0;color:#fff;">截止时间</el-tag>
+            </div>
+          </a>
+          <a href="publish-task.html" class="block p-8 bg-white rounded-xl border border-gray-100 shadow-sm hover:shadow-md transition-shadow no-underline text-center">
+            <span style="font-size:48px;">🏃</span>
+            <h3 class="text-lg font-bold text-gray-800 mt-3">跑腿委托</h3>
+            <p class="text-sm text-gray-400 mt-1">发布跑腿任务，找人帮忙</p>
+            <div class="flex gap-2 justify-center mt-3">
+              <el-tag size="small" type="success">酬劳</el-tag>
+              <el-tag size="small" type="success">地点</el-tag>
+              <el-tag size="small" type="success">时间</el-tag>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div class="footer">校园轻集市 · 让校园生活更简单</div>
+    </div>
+  </div>
+
+  <script>
+    const app = Vue.createApp({
+      methods: { go(url) { window.location.href = url; } }
+    });
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>

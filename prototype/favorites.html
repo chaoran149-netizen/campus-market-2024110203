@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>校园轻集市 - 我的收藏</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/element-plus/dist/index.css">
+  <script src="https://cdn.jsdelivr.net/npm/vue@3/dist/vue.global.prod.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/element-plus/dist/index.full.min.js"></script>
+  <link rel="stylesheet" href="assets/common.css">
+</head>
+<body>
+  <div id="app">
+    <div class="app-container">
+      <topbar></topbar>
+      <div class="page-content">
+        <el-breadcrumb separator="/" style="margin-bottom:16px;">
+          <el-breadcrumb-item :to="{ path: '/home.html' }">首页</el-breadcrumb-item>
+          <el-breadcrumb-item :to="{ path: '/profile.html' }">个人中心</el-breadcrumb-item>
+          <el-breadcrumb-item>我的收藏</el-breadcrumb-item>
+        </el-breadcrumb>
+        <h1 class="text-xl font-bold text-gray-800 mb-4">❤️ 我的收藏（{{ favorites.length }}）</h1>
+        <div class="card-grid">
+          <div v-for="f in favorites" :key="f.id" class="info-card p-4" @click="go(f.link)">
+            <img :src="f.img" class="w-full h-36 object-cover rounded-lg mb-3">
+            <div class="tag-row"><el-tag :type="f.tagType" size="small">{{ f.type }}</el-tag><el-tag size="small" type="info">{{ f.campus }}</el-tag></div>
+            <h3 class="font-semibold text-gray-800 mb-1">{{ f.title }}</h3>
+            <div class="flex items-center justify-between">
+              <span v-if="f.price" class="text-lg font-bold text-red-500">¥{{ f.price }}</span>
+              <span v-else class="text-sm text-blue-500 font-medium">{{ f.statusText }}</span>
+              <el-button text type="danger" size="small" @click.stop="remove(f)">取消收藏</el-button>
+            </div>
+          </div>
+        </div>
+        <div v-if="!favorites.length" class="empty-state"><el-empty description="还没有收藏的内容" /></div>
+      </div>
+      <div class="footer">校园轻集市 · 让校园生活更简单</div>
+    </div>
+  </div>
+  <script>
+    const app = Vue.createApp({
+      data() { return {
+        favorites: [
+          { id: 1, title: '索尼降噪耳机 WH-1000XM4', type: '二手交易', campus: '东校区', price: 1200, img: 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop', tagType: 'warning', link: '/item-detail.html' },
+          { id: 2, title: '东区食堂三楼拼奶茶，一点点', type: '拼单搭子', campus: '东校区', price: 0, statusText: '进行中', img: 'https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&h=300&fit=crop', tagType: 'warning', link: '/group-detail.html' },
+          { id: 3, title: '求帮取快递到 6 栋宿舍', type: '跑腿委托', campus: '主校区', price: 5, img: 'https://images.unsplash.com/photo-1607344645866-009c320b63e0?w=400&h=300&fit=crop', tagType: 'success', link: '/task-detail.html' },
+        ]
+      };},
+      methods: {
+        go(url) { window.location.href = url; },
+        remove(f) { this.favorites = this.favorites.filter(x => x.id !== f.id); this.$message.info('已取消收藏'); }
+      }
+    });
+    app.component('topbar', {
+      template: `<div class="topbar"><div class="topbar-inner"><a href="index.html" class="topbar-logo">🎒 校园轻集市</a><div class="topbar-nav"><el-button text @click="go('/home.html')">首页</el-button><el-button text @click="go('/category.html')">集市浏览</el-button><el-button text @click="go('/publish.html')">发布信息</el-button><el-button text @click="go('/messages.html')">消息</el-button><el-button text type="primary" @click="go('/profile.html')">个人中心</el-button></div><div class="topbar-right"><el-avatar size="small" style="background:#409eff;">张</el-avatar><span class="text-sm text-gray-600">张三</span></div></div></div>`,
+      methods: { go(url) { window.location.href = url; } }
+    });
+    app.use(ElementPlus);
+    app.mount('#app');
+  </script>
+</body>
+</html>
