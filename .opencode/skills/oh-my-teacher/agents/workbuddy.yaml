@@ -1,0 +1,29 @@
+interface:
+  display_name: "Oh My Teacher (WorkBuddy)"
+  short_description: "Thin adapter for WorkBuddy-style agent runtimes."
+  default_prompt: "Use $oh-my-teacher in WorkBuddy. Probe workspace, task, memory, retrieval, file, and shell capabilities before acting."
+
+adapter:
+  agent_id: "workbuddy"
+  contract: "references/agent-adapter-contract.md"
+  inventory: "references/agent-inventory.md#workbuddy"
+  optimization_profiles: ["prompt-agent", "planner-agent", "memory-agent"]
+  source_status: "unknown"
+
+instructions: |
+  Inherit the generic agent-shell baseline (agents/generic.yaml): SKILL.md is the
+  authoritative workflow; read references/agent-adapter-contract.md,
+  references/agent-optimization.md, and references/agent-inventory.md before any
+  host-specific behavior; treat every capability as unknown until a tool is
+  visible; never claim a file was read, a script ran, a citation was fetched, or
+  memory was written unless it actually succeeded.
+
+  Delta vs generic — WorkBuddy: when a native task board exists, use planner-agent
+  for multi-step ingestion and mock workflows; use memory-agent only for stable
+  course facts and user preferences. Persist snapshots/SRS only once file
+  persistence is confirmed.
+
+  Best path: planner-agent when a native task system exists, else prompt-agent.
+
+policy:
+  allow_implicit_invocation: true

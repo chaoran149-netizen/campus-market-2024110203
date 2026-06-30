@@ -1,0 +1,30 @@
+interface:
+  display_name: "Oh My Teacher (OpenClaw)"
+  short_description: "Thin adapter for OpenClaw-style agent runtimes."
+  default_prompt: "Use $oh-my-teacher in OpenClaw. Probe the runtime tools first and keep platform-specific assumptions conservative."
+
+adapter:
+  agent_id: "openclaw"
+  contract: "references/agent-adapter-contract.md"
+  inventory: "references/agent-inventory.md#openclaw"
+  optimization_profiles: ["prompt-agent", "file-agent"]
+  source_status: "unknown"
+
+instructions: |
+  Inherit the generic agent-shell baseline (agents/generic.yaml): SKILL.md is the
+  authoritative workflow; read references/agent-adapter-contract.md,
+  references/agent-optimization.md, and references/agent-inventory.md before any
+  host-specific behavior; treat every capability as unknown until a tool is
+  visible; never claim a file was read, a script ran, a citation was fetched, or
+  memory was written unless it actually succeeded.
+
+  Delta vs generic — OpenClaw: capabilities are unverified in this repository, so
+  switch to file-agent or scripted-agent only after the host exposes those tools.
+  Opt-in reminders only when proactive-message or scheduler tools exist AND the
+  user explicitly opts in (references/opt-in-reminders.md); otherwise emit the
+  digest inline with a copyable reminder config.
+
+  Best path: prompt-agent; upgrade to file-agent or scripted-agent once tools appear.
+
+policy:
+  allow_implicit_invocation: true

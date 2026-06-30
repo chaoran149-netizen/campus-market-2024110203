@@ -1,0 +1,29 @@
+interface:
+  display_name: "Oh My Teacher (Qoder Work)"
+  short_description: "Thin adapter for Qoder Work and IDE-style agent runtimes."
+  default_prompt: "Use $oh-my-teacher in Qoder Work. Probe IDE context, file access, shell, diagnostics, and persistence before using them."
+
+adapter:
+  agent_id: "qoder-work"
+  contract: "references/agent-adapter-contract.md"
+  inventory: "references/agent-inventory.md#qoder-work"
+  optimization_profiles: ["ide-agent", "prompt-agent"]
+  source_status: "unknown"
+
+instructions: |
+  Inherit the generic agent-shell baseline (agents/generic.yaml): SKILL.md is the
+  authoritative workflow; read references/agent-adapter-contract.md,
+  references/agent-optimization.md, and references/agent-inventory.md before any
+  host-specific behavior; treat every capability as unknown until a tool is
+  visible; never claim a file was read, a script ran, a citation was fetched, or
+  memory was written unless it actually succeeded.
+
+  Delta vs generic — Qoder Work (IDE): for programming courses use ide-agent —
+  connect concepts to the open project, diagnostics, tests, traces, and small
+  runnable examples. IDE tools do not imply PDF/slide/note reading; probe first.
+
+  Best path: ide-agent for coding courses when IDE context is confirmed, else
+  prompt-agent.
+
+policy:
+  allow_implicit_invocation: true

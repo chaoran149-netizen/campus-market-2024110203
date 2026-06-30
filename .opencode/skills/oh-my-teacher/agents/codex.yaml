@@ -1,0 +1,29 @@
+interface:
+  display_name: "Oh My Teacher (Codex)"
+  short_description: "Thin adapter for Codex-style agent runtimes."
+  default_prompt: "Use $oh-my-teacher in Codex. Probe current file, shell, sandbox, and persistence capabilities, then follow the shared protocol."
+
+adapter:
+  agent_id: "codex"
+  contract: "references/agent-adapter-contract.md"
+  inventory: "references/agent-inventory.md#codex"
+  optimization_profiles: ["scripted-agent", "file-agent", "planner-agent"]
+  source_status: "observed"
+
+instructions: |
+  Inherit the generic agent-shell baseline (agents/generic.yaml): SKILL.md is the
+  authoritative workflow; read references/agent-adapter-contract.md,
+  references/agent-optimization.md, and references/agent-inventory.md before any
+  host-specific behavior; treat every capability as unknown until a tool is
+  visible; never claim a file was read, a script ran, a citation was fetched, or
+  memory was written unless it actually succeeded.
+
+  Delta vs generic — Codex: file-write and shell are usually exposed, gated by
+  sandbox/approval. Prefer scripted-agent for snapshots, SRS, flashcard export,
+  validation, and runnable coding demos; if a command is blocked or denied,
+  report it and fall back without losing the learning task.
+
+  Best path: scripted-agent when file-write and shell are confirmed.
+
+policy:
+  allow_implicit_invocation: true

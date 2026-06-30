@@ -1,0 +1,29 @@
+interface:
+  display_name: "Oh My Teacher (Trae)"
+  short_description: "Thin adapter for Trae and IDE-style agent runtimes."
+  default_prompt: "Use $oh-my-teacher in Trae. Probe IDE, file, shell, browser/search, diagnostics, and persistence capabilities before acting."
+
+adapter:
+  agent_id: "trae"
+  contract: "references/agent-adapter-contract.md"
+  inventory: "references/agent-inventory.md#trae"
+  optimization_profiles: ["ide-agent", "prompt-agent"]
+  source_status: "unknown"
+
+instructions: |
+  Inherit the generic agent-shell baseline (agents/generic.yaml): SKILL.md is the
+  authoritative workflow; read references/agent-adapter-contract.md,
+  references/agent-optimization.md, and references/agent-inventory.md before any
+  host-specific behavior; treat every capability as unknown until a tool is
+  visible; never claim a file was read, a script ran, a citation was fetched, or
+  memory was written unless it actually succeeded.
+
+  Delta vs generic — Trae (IDE): for programming courses use ide-agent with
+  project-aware examples, diagnostics, code traces, and runnable demos when shell
+  exists. Probe browser/search and project commands before relying on them.
+
+  Best path: ide-agent for programming courses, prompt-agent for ordinary exam
+  review until tools are confirmed.
+
+policy:
+  allow_implicit_invocation: true
