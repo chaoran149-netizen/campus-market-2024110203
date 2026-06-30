@@ -7,3 +7,12 @@ export function getErrands() {
 export function getErrandById(id: number) {
   return http.get(`/errands/${id}`)
 }
+
+export function createErrand(data: {
+  title: string; taskType: string; reward: number;
+  pickupLocation: string; deliveryLocation: string;
+  deadline: string; description: string;
+  campus: string; publisher: string; status: string;
+}) {
+  return http.post('/errands', data)
+}

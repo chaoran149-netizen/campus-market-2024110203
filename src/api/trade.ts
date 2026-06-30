@@ -7,3 +7,11 @@ export function getTrades() {
 export function getTradeById(id: number) {
   return http.get(`/trades/${id}`)
 }
+
+export function createTrade(data: {
+  title: string; price: number; category: string; condition: string;
+  location: string; campus: string; description: string;
+  publisher: string; publishTime: string; status: string;
+}) {
+  return http.post('/trades', data)
+}
