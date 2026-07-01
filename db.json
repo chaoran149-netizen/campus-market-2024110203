@@ -111,6 +111,32 @@
       "image": "",
       "status": "open",
       "contact": "13800008888"
+    },
+    {
+      "title": "1",
+      "price": 1,
+      "category": "教材书籍",
+      "condition": "九成新",
+      "location": "1",
+      "campus": "东校区",
+      "description": "1",
+      "publisher": "当前用户",
+      "publishTime": "2026-6-30 10:40:30",
+      "status": "open",
+      "id": 9
+    },
+    {
+      "campus": "???",
+      "description": "??Day4???????",
+      "publishTime": "2026-06-29 10:00",
+      "price": 99,
+      "category": "????",
+      "status": "open",
+      "condition": "???",
+      "publisher": "????",
+      "location": "???",
+      "title": "????-?????",
+      "id": 10
     }
   ],
   "lostFounds": [

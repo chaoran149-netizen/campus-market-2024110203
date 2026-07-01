@@ -1,7 +1,9 @@
 <script setup lang="ts">
 import { useRouter } from 'vue-router'
+import { useUserStore } from '@/stores/user'
 
 const router = useRouter()
+const userStore = useUserStore()
 </script>
 
 <template>
@@ -11,6 +13,12 @@ const router = useRouter()
         校园轻集市
       </h1>
       <slot name="nav" />
+      <div class="header-right">
+        <button class="user-btn" @click="router.push('/user')">
+          <span class="user-avatar">{{ userStore.initial }}</span>
+          <span class="user-name">{{ userStore.displayName }}</span>
+        </button>
+      </div>
     </div>
   </header>
 </template>
@@ -53,14 +61,52 @@ const router = useRouter()
   color: var(--color-primary);
 }
 
-@media (max-width: 640px) {
-  .header-inner {
-    padding: 0 16px;
-    gap: 16px;
-  }
+.header-right {
+  margin-left: auto;
+  flex-shrink: 0;
+}
 
-  .app-title {
-    font-size: 16px;
-  }
+.user-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 12px 6px 6px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  cursor: pointer;
+  font-family: inherit;
+  transition: all var(--transition-fast);
+}
+
+.user-btn:hover {
+  border-color: var(--color-primary-soft);
+  background: var(--color-primary-light);
+}
+
+.user-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.user-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+}
+
+@media (max-width: 640px) {
+  .header-inner { padding: 0 16px; gap: 16px; }
+  .app-title { font-size: 16px; }
+  .user-name { display: none; }
 }
 </style>
