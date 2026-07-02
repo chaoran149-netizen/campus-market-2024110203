@@ -166,7 +166,8 @@
       "contact": "13800001111",
       "description": "李同学 · 计算机学院，卡号后四位 1234",
       "status": "open",
-      "campus": "主校区"
+      "campus": "主校区",
+      "image": "https://images.unsplash.com/photo-1557200134-90327ee9fafa?w=400&h=300&fit=crop"
     },
     {
       "id": 2,
@@ -178,7 +179,8 @@
       "contact": "13800002222",
       "description": "三把钥匙加一个红色小熊挂件",
       "status": "open",
-      "campus": "主校区"
+      "campus": "主校区",
+      "image": "https://images.unsplash.com/photo-1582139329536-e7284fece509?w=400&h=300&fit=crop"
     },
     {
       "id": 3,
@@ -190,7 +192,8 @@
       "contact": "13800003333",
       "description": "黑色手机壳，屏幕有贴膜",
       "status": "open",
-      "campus": "主校区"
+      "campus": "主校区",
+      "image": "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=400&h=300&fit=crop"
     },
     {
       "id": 4,
@@ -202,7 +205,8 @@
       "contact": "13800004444",
       "description": "棕色的皮钱包，内含身份证和现金",
       "status": "closed",
-      "campus": "主校区"
+      "campus": "主校区",
+      "image": "https://images.unsplash.com/photo-1627123424574-724758594e93?w=400&h=300&fit=crop"
     },
     {
       "id": 5,
@@ -214,7 +218,8 @@
       "contact": "13800005555",
       "description": "灰色围巾，品牌标签有磨损",
       "status": "closed",
-      "campus": "东校区"
+      "campus": "东校区",
+      "image": "https://images.unsplash.com/photo-1601925260368-ae2f83cf8b7f?w=400&h=300&fit=crop"
     },
     {
       "id": 6,
@@ -226,7 +231,8 @@
       "contact": "13800006666",
       "description": "蓝色保温杯 500ml，杯身有贴纸",
       "status": "open",
-      "campus": "主校区"
+      "campus": "主校区",
+      "image": "https://images.unsplash.com/photo-1570831739435-6601aa3fa4fb?w=400&h=300&fit=crop"
     },
     {
       "id": 7,
@@ -238,7 +244,8 @@
       "contact": "13800007777",
       "description": "白色充电仓，有卡通贴纸",
       "status": "open",
-      "campus": "西校区"
+      "campus": "西校区",
+      "image": "https://images.unsplash.com/photo-1484704849700-f032a568e944?w=400&h=300&fit=crop"
     }
   ],
   "groupBuys": [
@@ -252,7 +259,8 @@
       "location": "三号楼",
       "publisher": "李同学",
       "status": "open",
-      "campus": "主校区"
+      "campus": "主校区",
+      "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop"
     },
     {
       "id": 2,
@@ -264,7 +272,8 @@
       "location": "二食堂",
       "publisher": "王同学",
       "status": "open",
-      "campus": "东校区"
+      "campus": "东校区",
+      "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop"
     },
     {
       "id": 3,
@@ -276,7 +285,8 @@
       "location": "图书馆",
       "publisher": "张同学",
       "status": "open",
-      "campus": "西校区"
+      "campus": "西校区",
+      "image": "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=400&h=300&fit=crop"
     },
     {
       "id": 4,
@@ -288,7 +298,8 @@
       "location": "操场",
       "publisher": "刘同学",
       "status": "open",
-      "campus": "主校区"
+      "campus": "主校区",
+      "image": "https://images.unsplash.com/photo-1579952363873-27f3bade9f55?w=400&h=300&fit=crop"
     },
     {
       "id": 5,
@@ -300,7 +311,8 @@
       "location": "线上",
       "publisher": "陈同学",
       "status": "open",
-      "campus": "线上"
+      "campus": "线上",
+      "image": "https://images.unsplash.com/photo-1542751371-adc38448a05e?w=400&h=300&fit=crop"
     },
     {
       "id": 6,
@@ -312,7 +324,8 @@
       "location": "校门口",
       "publisher": "赵同学",
       "status": "open",
-      "campus": "主校区"
+      "campus": "主校区",
+      "image": "https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?w=400&h=300&fit=crop"
     },
     {
       "id": 7,
@@ -324,7 +337,8 @@
       "location": "信息楼机房",
       "publisher": "孙同学",
       "status": "open",
-      "campus": "主校区"
+      "campus": "主校区",
+      "image": "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=400&h=300&fit=crop"
     }
   ],
   "errands": [
@@ -339,7 +353,8 @@
       "publisher": "李同学",
       "status": "open",
       "campus": "主校区",
-      "description": "菜鸟驿站取三个包裹，送到三号楼一楼"
+      "description": "菜鸟驿站取三个包裹，送到三号楼一楼",
+      "image": "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400&h=300&fit=crop"
     },
     {
       "id": 2,
@@ -352,7 +367,8 @@
       "publisher": "王同学",
       "status": "open",
       "campus": "主校区",
-      "description": "买一瓶洗发水（海飞丝）和牙膏（佳洁士）"
+      "description": "买一瓶洗发水（海飞丝）和牙膏（佳洁士）",
+      "image": "https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=300&fit=crop"
     },
     {
       "id": 3,
@@ -365,7 +381,8 @@
       "publisher": "张同学",
       "status": "open",
       "campus": "主校区",
-      "description": "打印 20 页期末复习资料，双面打印"
+      "description": "打印 20 页期末复习资料，双面打印",
+      "image": "https://images.unsplash.com/photo-1563986768609-322da13575f2?w=400&h=300&fit=crop"
     },
     {
       "id": 4,
@@ -378,7 +395,8 @@
       "publisher": "刘同学",
       "status": "taken",
       "campus": "主校区",
-      "description": "二食堂一楼麻辣烫窗口取餐"
+      "description": "二食堂一楼麻辣烫窗口取餐",
+      "image": "https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop"
     },
     {
       "id": 5,
@@ -391,7 +409,8 @@
       "publisher": "陈同学",
       "status": "taken",
       "campus": "东校区",
-      "description": "换一个自行车内胎，26寸"
+      "description": "换一个自行车内胎，26寸",
+      "image": "https://images.unsplash.com/photo-1558618666-fcd25c85f82e?w=400&h=300&fit=crop"
     },
     {
       "id": 6,
@@ -404,7 +423,8 @@
       "publisher": "赵同学",
       "status": "open",
       "campus": "主校区",
-      "description": "帮忙把两个行李箱从校门口搬到宿舍"
+      "description": "帮忙把两个行李箱从校门口搬到宿舍",
+      "image": "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=400&h=300&fit=crop"
     },
     {
       "id": 7,
@@ -417,7 +437,8 @@
       "publisher": "孙同学",
       "status": "done",
       "campus": "主校区",
-      "description": "在二教门口取三本书，帮忙还到图书馆"
+      "description": "在二教门口取三本书，帮忙还到图书馆",
+      "image": "https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?w=400&h=300&fit=crop"
     },
     {
       "title": "卖资料",
@@ -430,7 +451,8 @@
       "campus": "主校区",
       "publisher": "chaoran",
       "status": "open",
-      "id": 8
+      "id": 8,
+      "image": "https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400&h=300&fit=crop"
     }
   ],
   "users": [

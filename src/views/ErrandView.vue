@@ -32,7 +32,7 @@ onMounted(async () => {
 
     <EmptyState v-if="!loading && items.length === 0" message="暂无跑腿任务" />
 
-    <div v-else class="errand-list">
+    <div v-else class="item-grid">
       <ItemCard
         v-for="item in items"
         :key="item.id"
@@ -50,5 +50,8 @@ onMounted(async () => {
 .page-top h2 { font-size: 24px; font-weight: 700; letter-spacing: -0.02em; margin-bottom: 4px; }
 .page-top p { font-size: 14px; color: var(--color-text-secondary); }
 
-.errand-list { display: flex; flex-direction: column; gap: 10px; }
+.item-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px;
+}
+@media (max-width: 640px) { .item-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
 </style>

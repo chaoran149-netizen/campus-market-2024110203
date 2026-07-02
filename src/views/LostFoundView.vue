@@ -40,7 +40,7 @@ const filteredItems = () => items.value.filter((i: LostFound) => i.type === acti
 
     <EmptyState v-if="!loading && filteredItems().length === 0" message="暂无相关信息" />
 
-    <div v-else class="item-list">
+    <div v-else class="item-grid">
       <ItemCard
         v-for="item in filteredItems()"
         :key="item.id"
@@ -66,5 +66,8 @@ const filteredItems = () => items.value.filter((i: LostFound) => i.type === acti
 }
 .tab-bar button.active { background: var(--color-surface); color: var(--color-text); box-shadow: var(--shadow-xs); }
 
-.item-list { display: flex; flex-direction: column; gap: 10px; }
+.item-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px;
+}
+@media (max-width: 640px) { .item-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
 </style>

@@ -48,7 +48,7 @@ const filteredItems = () => {
 
     <EmptyState v-if="!loading && filteredItems().length === 0" message="暂无拼单信息" />
 
-    <div v-else class="group-list">
+    <div v-else class="item-grid">
       <ItemCard
         v-for="item in filteredItems()"
         :key="item.id"
@@ -76,5 +76,8 @@ const filteredItems = () => {
 .cat-scroll button:hover { border-color: var(--color-primary-soft); color: var(--color-primary); }
 .cat-scroll button.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
 
-.group-list { display: flex; flex-direction: column; gap: 10px; }
+.item-grid {
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 16px;
+}
+@media (max-width: 640px) { .item-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; } }
 </style>
