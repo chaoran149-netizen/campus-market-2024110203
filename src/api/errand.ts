@@ -16,3 +16,7 @@ export function createErrand(data: {
 }) {
   return http.post('/errands', data)
 }
+
+export function deleteErrand(id: number) {
+  return http.delete(`/errands/${id}`)
+}

@@ -15,3 +15,7 @@ export function createLostFound(data: {
 }) {
   return http.post('/lostFounds', data)
 }
+
+export function deleteLostFound(id: number) {
+  return http.delete(`/lostFounds/${id}`)
+}

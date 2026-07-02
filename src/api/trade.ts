@@ -15,3 +15,7 @@ export function createTrade(data: {
 }) {
   return http.post('/trades', data)
 }
+
+export function deleteTrade(id: number) {
+  return http.delete(`/trades/${id}`)
+}

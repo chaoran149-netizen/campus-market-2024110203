@@ -16,3 +16,7 @@ export function createGroupBuy(data: {
 }) {
   return http.post('/groupBuys', data)
 }
+
+export function deleteGroupBuy(id: number) {
+  return http.delete(`/groupBuys/${id}`)
+}
