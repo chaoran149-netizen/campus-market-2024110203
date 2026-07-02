@@ -1,10 +1,32 @@
 <script setup lang="ts">
-defineProps<{
+import { computed } from 'vue'
+import { useFavoriteStore } from '@/stores/favorite'
+import type { FavoriteItem } from '@/stores/favorite'
+
+const props = defineProps<{
   type: 'trade' | 'lostFound' | 'groupBuy' | 'errand'
-  data: Record<string, unknown>
+    data: Record<string, unknown>
 }>()
 
+const favoriteStore = useFavoriteStore()
 const fallbackImg = 'https://images.unsplash.com/photo-1586769852044-692d6e3703f0?w=400&h=300&fit=crop'
+
+const favId = computed(() => Number(props.data.id))
+const isFav = computed(() => favoriteStore.isFavorited(favId.value))
+
+function toggleFav(e: Event) {
+  e.preventDefault()
+  e.stopPropagation()
+  const item: FavoriteItem = {
+    id: favId.value,
+    type: props.type,
+    title: (props.data.title || props.data.itemName || '') as string,
+    price: (props.data.price || props.data.reward) as number | undefined,
+    campus: props.data.campus as string,
+    addedAt: new Date().toLocaleString(),
+  }
+  favoriteStore.toggleFavorite(item)
+}
 </script>
 
 <template>
@@ -13,6 +35,7 @@ const fallbackImg = 'https://images.unsplash.com/photo-1586769852044-692d6e3703f
     <div class="card-img-wrap">
       <img :src="(data.image as string) || fallbackImg" :alt="data.title as string" loading="lazy" />
       <span v-if="data.status === 'closed'" class="corner-badge sold">已售</span>
+      <button class="fav-btn" :class="{ active: isFav }" @click="toggleFav">{{ isFav ? '❤️' : '🤍' }}</button>
     </div>
     <div class="card-body">
       <h4>{{ data.title }}</h4>
@@ -32,6 +55,7 @@ const fallbackImg = 'https://images.unsplash.com/photo-1586769852044-692d6e3703f
     <div class="card-img-wrap">
       <img :src="(data.image as string) || fallbackImg" :alt="data.itemName as string" loading="lazy" />
       <span class="corner-badge" :class="data.type">{{ data.type === 'lost' ? '寻物' : '拾取' }}</span>
+      <button class="fav-btn" :class="{ active: isFav }" @click="toggleFav">{{ isFav ? '❤️' : '🤍' }}</button>
     </div>
     <div class="card-body">
       <h4>{{ data.itemName }}</h4>
@@ -49,6 +73,7 @@ const fallbackImg = 'https://images.unsplash.com/photo-1586769852044-692d6e3703f
     <div class="card-img-wrap">
       <img :src="(data.image as string) || fallbackImg" :alt="data.title as string" loading="lazy" />
       <span class="corner-badge group">{{ data.type }}</span>
+      <button class="fav-btn" :class="{ active: isFav }" @click="toggleFav">{{ isFav ? '❤️' : '🤍' }}</button>
     </div>
     <div class="card-body">
       <h4>{{ data.title }}</h4>
@@ -68,6 +93,7 @@ const fallbackImg = 'https://images.unsplash.com/photo-1586769852044-692d6e3703f
     <div class="card-img-wrap">
       <img :src="(data.image as string) || fallbackImg" :alt="data.title as string" loading="lazy" />
       <span class="corner-badge errand">{{ data.taskType }}</span>
+      <button class="fav-btn" :class="{ active: isFav }" @click="toggleFav">{{ isFav ? '❤️' : '🤍' }}</button>
     </div>
     <div class="card-body">
       <h4>{{ data.title }}</h4>
@@ -112,6 +138,17 @@ const fallbackImg = 'https://images.unsplash.com/photo-1586769852044-692d6e3703f
 .corner-badge.found  { background: #059669; }
 .corner-badge.group  { background: var(--color-primary); }
 .corner-badge.errand { background: #7C3AED; }
+
+/* 收藏按钮 */
+.fav-btn {
+  position: absolute; top: 8px; left: 8px;
+  width: 32px; height: 32px; border: none; border-radius: 50%;
+  background: rgba(255,255,255,0.85); font-size: 16px; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: all var(--transition-fast); line-height: 1; padding: 0;
+}
+.fav-btn:hover { background: #fff; transform: scale(1.1); }
+.fav-btn.active { background: #FEE2E2; }
 
 /* 内容区 */
 .card-body { padding: 14px 16px; display: flex; flex-direction: column; gap: 8px; }

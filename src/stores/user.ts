@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
+import { useFavoriteStore } from './favorite'
 
 export interface User {
   id: number
@@ -43,6 +44,7 @@ export const useUserStore = defineStore('user', () => {
   function logout() {
     currentUser.value = null
     clearStorage()
+    useFavoriteStore().clearAll()
   }
 
   function restoreLogin() {

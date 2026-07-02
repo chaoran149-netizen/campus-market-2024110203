@@ -1,10 +1,12 @@
 <script setup lang="ts">
 import { useRoute, useRouter } from 'vue-router'
-import { ref } from 'vue'
+import { computed } from 'vue'
+import { useFavoriteStore } from '@/stores/favorite'
+import type { FavoriteItem } from '@/stores/favorite'
 
 const route = useRoute()
 const router = useRouter()
-const isFavorited = ref(false)
+const favoriteStore = useFavoriteStore()
 
 const items: Record<number, { title: string; type: string; campus: string; price: number; emoji: string; desc: string; tags: string[] }> = {
   1: { title: '二手教材 - 高等数学', type: '二手交易', campus: '主校区', price: 25, emoji: '📚', desc: '大二高数教材，几乎全新，只有前两章有笔记。需要自取，主校区3号楼。', tags: ['九成新', '可议价', '自取'] },
@@ -14,6 +16,26 @@ const items: Record<number, { title: string; type: string; campus: string; price
 }
 
 const item = items[Number(route.params.id)] || items[1]
+
+const itemId = Number(route.params.id) || 1
+const isFavorited = computed(() => favoriteStore.isFavorited(itemId))
+
+function toggleFav() {
+  const typeMap: Record<string, FavoriteItem['type']> = {
+    '二手交易': 'trade',
+    '失物招领': 'lostFound',
+    '拼单搭子': 'groupBuy',
+  }
+  const favItem: FavoriteItem = {
+    id: itemId,
+    type: typeMap[item.type] || 'trade',
+    title: item.title,
+    price: item.price || undefined,
+    campus: item.campus,
+    addedAt: new Date().toLocaleString(),
+  }
+  favoriteStore.toggleFavorite(favItem)
+}
 </script>
 
 <template>
@@ -43,7 +65,7 @@ const item = items[Number(route.params.id)] || items[1]
       </div>
 
       <div class="detail-actions">
-        <button class="action-btn favorite" :class="{ liked: isFavorited }" @click="isFavorited = !isFavorited">
+        <button class="action-btn favorite" :class="{ liked: isFavorited }" @click="toggleFav">
           {{ isFavorited ? '❤️ 已收藏' : '🤍 收藏' }}
         </button>
         <button class="action-btn contact">💬 联系发布者</button>

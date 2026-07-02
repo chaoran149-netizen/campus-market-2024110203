@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 
-interface FavoriteItem {
+export interface FavoriteItem {
   id: number
   type: 'trade' | 'lostFound' | 'groupBuy' | 'errand'
   title: string
@@ -10,8 +10,23 @@ interface FavoriteItem {
   addedAt: string
 }
 
+const STORAGE_KEY = 'campus_favorites'
+
+function loadFavorites(): FavoriteItem[] {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    return raw ? JSON.parse(raw) : []
+  } catch { return [] }
+}
+
+function saveFavorites(list: FavoriteItem[]) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(list))
+}
+
 export const useFavoriteStore = defineStore('favorite', () => {
-  const favorites = ref<FavoriteItem[]>([])
+  const favorites = ref<FavoriteItem[]>(loadFavorites())
+
+  watch(favorites, (val) => saveFavorites(val), { deep: true })
 
   const count = computed(() => favorites.value.length)
 
@@ -39,6 +54,7 @@ export const useFavoriteStore = defineStore('favorite', () => {
 
   function clearAll() {
     favorites.value = []
+    localStorage.removeItem(STORAGE_KEY)
   }
 
   return { favorites, count, isFavorited, addFavorite, removeFavorite, toggleFavorite, clearAll }
