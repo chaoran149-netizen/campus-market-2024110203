@@ -24,12 +24,21 @@ const menus = [
 
 <template>
   <div class="user-view">
+    <!-- 未登录 -->
+    <div v-if="!userStore.isLoggedIn" class="login-prompt">
+      <div class="avatar-circle">?</div>
+      <h3>尚未登录</h3>
+      <p>登录后查看个人信息和收藏</p>
+      <button class="to-login-btn" @click="router.push('/login')">去登录</button>
+    </div>
+
+    <!-- 已登录 -->
+    <template v-else>
     <div class="profile-card">
       <div class="avatar-circle">{{ userStore.initial }}</div>
       <div class="profile-info">
         <h3>{{ userStore.displayName }}</h3>
-        <p>{{ userStore.user.college }} · {{ userStore.user.campus }}</p>
-        <span class="credit-badge">⭐ 信用分 {{ userStore.user.creditScore }}</span>
+        <p>{{ userStore.currentUser?.college ?? '' }} · {{ userStore.currentUser?.campus ?? '' }}</p>
       </div>
     </div>
 
@@ -64,11 +73,28 @@ const menus = [
         </div>
       </div>
     </div>
+    </template>
   </div>
 </template>
 
 <style scoped>
 .user-view { display: flex; flex-direction: column; gap: 20px; max-width: 480px; }
+
+.login-prompt {
+  display: flex; flex-direction: column; align-items: center; gap: 12px;
+  padding: 48px 24px; border: 1px solid var(--color-border); border-radius: var(--radius-xl);
+  background: var(--color-surface); text-align: center;
+}
+.login-prompt .avatar-circle { width: 64px; height: 64px; font-size: 26px; }
+.login-prompt h3 { font-size: 18px; font-weight: 700; color: var(--color-text); }
+.login-prompt p { font-size: 14px; color: var(--color-text-secondary); }
+.to-login-btn {
+  padding: 10px 32px; border: none; border-radius: var(--radius-md); background: var(--color-primary);
+  color: #fff; font-size: 14px; font-weight: 600; font-family: inherit; cursor: pointer;
+  transition: all var(--transition);
+}
+.to-login-btn:hover { background: var(--color-primary-hover); }
+
 .profile-card { display: flex; align-items: center; gap: 16px; padding: 24px; border: 1px solid var(--color-border); border-radius: var(--radius-xl); background: var(--color-surface); }
 .avatar-circle { width: 56px; height: 56px; border-radius: 50%; background: var(--color-primary); color: #fff; display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 22px; font-weight: 700; }
 .profile-info h3 { font-size: 18px; font-weight: 700; color: var(--color-text); margin-bottom: 2px; letter-spacing: -0.02em; }

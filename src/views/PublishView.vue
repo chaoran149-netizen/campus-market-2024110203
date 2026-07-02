@@ -68,7 +68,14 @@ async function handleSubmit() {
   clearErrors()
   errorMsg.value = ''
   successMsg.value = ''
+
+  if (!userStore.isLoggedIn) {
+    errorMsg.value = '请先登录后再发布'
+    return
+  }
   if (!validate()) return
+
+  const publisher = userStore.displayName
   submitting.value = true
   try {
     const publisher = userStore.displayName

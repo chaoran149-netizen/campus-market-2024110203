@@ -1,43 +1,54 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 
-interface User {
+export interface User {
+  id: number
+  username: string
   nickname: string
   college: string
   campus: string
-  role: string
-  creditScore: number
-  avatar: string
+}
+
+const STORAGE_KEY = 'campus_user'
+
+function loadFromStorage(): User | null {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY)
+    return raw ? JSON.parse(raw) : null
+  } catch {
+    return null
+  }
+}
+
+function saveToStorage(user: User) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(user))
+}
+
+function clearStorage() {
+  localStorage.removeItem(STORAGE_KEY)
 }
 
 export const useUserStore = defineStore('user', () => {
-  const user = ref<User>({
-    nickname: '校园用户',
-    college: '计算机学院',
-    campus: '主校区',
-    role: '学生',
-    creditScore: 85,
-    avatar: '',
-  })
+  const currentUser = ref<User | null>(loadFromStorage())
 
-  const isLoggedIn = computed(() => user.value.nickname.trim().length > 0)
-  const displayName = computed(() => user.value.nickname)
-  const initial = computed(() => user.value.nickname.charAt(0))
+  const isLoggedIn = computed(() => currentUser.value !== null)
+  const displayName = computed(() => currentUser.value?.nickname ?? '')
+  const initial = computed(() => currentUser.value?.nickname?.charAt(0) ?? '?')
 
-  function updateUser(partial: Partial<User>) {
-    user.value = { ...user.value, ...partial }
+  function login(user: User) {
+    currentUser.value = user
+    saveToStorage(user)
   }
 
-  function resetUser() {
-    user.value = {
-      nickname: '校园用户',
-      college: '计算机学院',
-      campus: '主校区',
-      role: '学生',
-      creditScore: 85,
-      avatar: '',
-    }
+  function logout() {
+    currentUser.value = null
+    clearStorage()
   }
 
-  return { user, isLoggedIn, displayName, initial, updateUser, resetUser }
+  function restoreLogin() {
+    const saved = loadFromStorage()
+    if (saved) currentUser.value = saved
+  }
+
+  return { currentUser, isLoggedIn, displayName, initial, login, logout, restoreLogin }
 })

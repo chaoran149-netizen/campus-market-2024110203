@@ -403,5 +403,23 @@
       "campus": "主校区",
       "description": "在二教门口取三本书，帮忙还到图书馆"
     }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "username": "test",
+      "password": "123456",
+      "nickname": "测试用户",
+      "college": "计算机学院",
+      "campus": "主校区"
+    },
+    {
+      "id": 2,
+      "username": "zhangsan",
+      "password": "123456",
+      "nickname": "张三",
+      "college": "经济学院",
+      "campus": "东校区"
+    }
   ]
 }

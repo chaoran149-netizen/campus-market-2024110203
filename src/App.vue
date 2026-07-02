@@ -1,7 +1,15 @@
 <script setup lang="ts">
+import { onMounted } from 'vue'
+import { useUserStore } from '@/stores/user'
 import AppLayout from '@/components/AppLayout.vue'
 import AppHeader from '@/components/AppHeader.vue'
 import AppNav from '@/components/AppNav.vue'
+
+const userStore = useUserStore()
+
+onMounted(() => {
+  userStore.restoreLogin()
+})
 </script>
 
 <template>
