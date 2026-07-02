@@ -10,7 +10,7 @@
       "publishTime": "2026-06-28 10:30",
       "location": "图书馆一楼",
       "campus": "主校区",
-      "image": "",
+      "image": "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=300&fit=crop",
       "status": "open",
       "contact": "13800001111"
     },
@@ -24,7 +24,7 @@
       "publishTime": "2026-06-28 09:15",
       "location": "五号楼楼下",
       "campus": "主校区",
-      "image": "",
+      "image": "https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop",
       "status": "open",
       "contact": "13800002222"
     },
@@ -38,7 +38,7 @@
       "publishTime": "2026-06-27 16:20",
       "location": "宿舍区车棚",
       "campus": "东校区",
-      "image": "",
+      "image": "https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=400&h=300&fit=crop",
       "status": "open",
       "contact": "13800003333"
     },
@@ -52,7 +52,7 @@
       "publishTime": "2026-06-27 14:00",
       "location": "信息楼一楼",
       "campus": "主校区",
-      "image": "",
+      "image": "https://images.unsplash.com/photo-1587829741301-dc798b83add3?w=400&h=300&fit=crop",
       "status": "open",
       "contact": "13800004444"
     },
@@ -66,7 +66,7 @@
       "publishTime": "2026-06-26 11:45",
       "location": "二食堂门口",
       "campus": "西校区",
-      "image": "",
+      "image": "https://images.unsplash.com/photo-1507473885765-e6ed057ab6fe?w=400&h=300&fit=crop",
       "status": "open",
       "contact": "13800005555"
     },
@@ -80,7 +80,7 @@
       "publishTime": "2026-06-26 08:30",
       "location": "活动中心",
       "campus": "主校区",
-      "image": "",
+      "image": "https://images.unsplash.com/photo-1510915361894-db8b60106cb1?w=400&h=300&fit=crop",
       "status": "open",
       "contact": "13800006666"
     },
@@ -94,7 +94,7 @@
       "publishTime": "2026-06-25 20:10",
       "location": "教学楼 A 区",
       "campus": "主校区",
-      "image": "",
+      "image": "https://images.unsplash.com/photo-1510557880182-3d4d3cba35a5?w=400&h=300&fit=crop",
       "status": "closed",
       "contact": "13800007777"
     },
@@ -108,7 +108,7 @@
       "publishTime": "2026-06-25 15:40",
       "location": "操场入口",
       "campus": "东校区",
-      "image": "",
+      "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop",
       "status": "open",
       "contact": "13800008888"
     },
@@ -123,7 +123,8 @@
       "publisher": "当前用户",
       "publishTime": "2026-6-30 10:40:30",
       "status": "open",
-      "id": 9
+      "id": 9,
+      "image": "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400&h=300&fit=crop"
     },
     {
       "campus": "???",
@@ -136,7 +137,22 @@
       "publisher": "????",
       "location": "???",
       "title": "????-?????",
-      "id": 10
+      "id": 10,
+      "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop"
+    },
+    {
+      "campus": "???",
+      "description": "????",
+      "publishTime": "2026-06-29",
+      "price": 88,
+      "category": "????",
+      "status": "open",
+      "condition": "???",
+      "publisher": "???",
+      "location": "???",
+      "title": "????",
+      "id": 11,
+      "image": "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=300&fit=crop"
     }
   ],
   "lostFounds": [
@@ -402,6 +418,19 @@
       "status": "done",
       "campus": "主校区",
       "description": "在二教门口取三本书，帮忙还到图书馆"
+    },
+    {
+      "title": "卖资料",
+      "taskType": "取快递",
+      "reward": 78,
+      "pickupLocation": "11",
+      "deliveryLocation": "11",
+      "deadline": "11",
+      "description": "11",
+      "campus": "主校区",
+      "publisher": "chaoran",
+      "status": "open",
+      "id": 8
     }
   ],
   "users": [
@@ -420,6 +449,22 @@
       "nickname": "张三",
       "college": "经济学院",
       "campus": "东校区"
+    },
+    {
+      "username": "chaoran",
+      "password": "200664",
+      "nickname": "chaoran",
+      "college": "计算机学院",
+      "campus": "主校区",
+      "id": 3
+    },
+    {
+      "username": "checkuser",
+      "campus": "???",
+      "password": "123456",
+      "college": "?????",
+      "nickname": "???",
+      "id": 4
     }
   ]
 }

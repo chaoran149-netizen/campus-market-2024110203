@@ -62,7 +62,7 @@ const filtered = computed(() => {
     <ErrorState v-else-if="error" message="加载失败，请检查 Mock 服务" @retry="fetchTrades" />
     <EmptyState v-else-if="filtered.length === 0" message="没有找到匹配的商品" />
 
-    <div v-else class="item-list">
+    <div v-else class="item-grid">
       <ItemCard v-for="item in filtered" :key="item.id" type="trade" :data="item" />
     </div>
   </div>
@@ -81,5 +81,12 @@ const filtered = computed(() => {
 }
 .cat-bar button:hover { border-color: var(--color-primary-soft); color: var(--color-primary); }
 .cat-bar button.active { background: var(--color-primary); color: #fff; border-color: var(--color-primary); }
-.item-list { display: flex; flex-direction: column; gap: 10px; }
+.item-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 16px;
+}
+@media (max-width: 640px) {
+  .item-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+}
 </style>

@@ -66,7 +66,9 @@ onMounted(async () => {
       </div>
       <div class="item-grid">
         <router-link v-for="item in latestItems" :key="item.id" :to="'/detail/' + item.id" class="item-card">
-          <span class="item-emoji">{{ item.category === '教材书籍' ? '📚' : item.category === '数码电子' ? '🎧' : item.category === '生活用品' ? '🚲' : '⌨️' }}</span>
+          <div class="item-img-wrap">
+            <img :src="(item as any).image || 'https://images.unsplash.com/photo-1586769852044-692d6e3703f0?w=200&h=150&fit=crop'" :alt="item.title" loading="lazy" />
+          </div>
           <div class="item-info">
             <h4>{{ item.title }}</h4>
             <span class="item-price">¥{{ item.price }}</span>
@@ -224,7 +226,7 @@ onMounted(async () => {
   display: flex;
   align-items: center;
   gap: 14px;
-  padding: 16px;
+  padding: 12px;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
   background: var(--color-surface);
@@ -237,6 +239,21 @@ onMounted(async () => {
   border-color: var(--color-border-hover);
   box-shadow: var(--shadow-md);
   transform: translateY(-1px);
+}
+
+.item-img-wrap {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  flex-shrink: 0;
+  background: var(--color-border-light);
+}
+
+.item-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
 .item-emoji { font-size: 32px; flex-shrink: 0; }
