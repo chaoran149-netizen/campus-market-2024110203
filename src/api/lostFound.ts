@@ -11,7 +11,7 @@ export function getLostFoundById(id: number) {
 export function createLostFound(data: {
   title: string; type: string; itemName: string;
   location: string; time: string; description: string;
-  contact: string; status: string; campus: string;
+  contact: string; status: string; campus: string; image?: string;
 }) {
   return http.post('/lostFounds', data)
 }

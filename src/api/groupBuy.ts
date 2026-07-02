@@ -12,7 +12,7 @@ export function createGroupBuy(data: {
   title: string; type: string; targetCount: number;
   deadline: string; location: string; description: string;
   campus: string; publisher: string; status: string;
-  currentCount: number;
+  currentCount: number; image?: string;
 }) {
   return http.post('/groupBuys', data)
 }

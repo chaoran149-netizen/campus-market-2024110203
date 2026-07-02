@@ -111,48 +111,6 @@
       "image": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop",
       "status": "open",
       "contact": "13800008888"
-    },
-    {
-      "title": "1",
-      "price": 1,
-      "category": "教材书籍",
-      "condition": "九成新",
-      "location": "1",
-      "campus": "东校区",
-      "description": "1",
-      "publisher": "当前用户",
-      "publishTime": "2026-6-30 10:40:30",
-      "status": "open",
-      "id": 9,
-      "image": "https://images.unsplash.com/photo-1491553895911-0055eca6402d?w=400&h=300&fit=crop"
-    },
-    {
-      "campus": "???",
-      "description": "??Day4???????",
-      "publishTime": "2026-06-29 10:00",
-      "price": 99,
-      "category": "????",
-      "status": "open",
-      "condition": "???",
-      "publisher": "????",
-      "location": "???",
-      "title": "????-?????",
-      "id": 10,
-      "image": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop"
-    },
-    {
-      "campus": "???",
-      "description": "????",
-      "publishTime": "2026-06-29",
-      "price": 88,
-      "category": "????",
-      "status": "open",
-      "condition": "???",
-      "publisher": "???",
-      "location": "???",
-      "title": "????",
-      "id": 11,
-      "image": "https://images.unsplash.com/photo-1585386959984-a4155224a1ad?w=400&h=300&fit=crop"
     }
   ],
   "lostFounds": [
@@ -471,22 +429,6 @@
       "nickname": "张三",
       "college": "经济学院",
       "campus": "东校区"
-    },
-    {
-      "username": "chaoran",
-      "password": "200664",
-      "nickname": "chaoran",
-      "college": "计算机学院",
-      "campus": "主校区",
-      "id": 3
-    },
-    {
-      "username": "checkuser",
-      "campus": "???",
-      "password": "123456",
-      "college": "?????",
-      "nickname": "???",
-      "id": 4
     }
   ]
 }

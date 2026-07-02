@@ -16,7 +16,7 @@ const submitting = ref(false)
 const successMsg = ref('')
 const errorMsg = ref('')
 
-const form = reactive({ title: '', description: '', campus: '主校区' })
+const form = reactive({ title: '', description: '', campus: '主校区', imageUrl: '' })
 
 const tradeFields = reactive({ price: null as number | null, category: '教材书籍', condition: '九成新', location: '' })
 const lostFoundFields = reactive({ type: 'lost' as 'lost' | 'found', itemName: '', location: '', time: '', contact: '' })
@@ -54,7 +54,7 @@ function validate(): boolean {
 function clearErrors() { Object.keys(errors).forEach(k => delete errors[k]) }
 
 function resetForm() {
-  form.title = ''; form.description = ''; form.campus = '主校区'
+  form.title = ''; form.description = ''; form.campus = '主校区'; form.imageUrl = ''
   tradeFields.price = null; tradeFields.category = '教材书籍'; tradeFields.condition = '九成新'; tradeFields.location = ''
   lostFoundFields.type = 'lost'; lostFoundFields.itemName = ''; lostFoundFields.location = ''; lostFoundFields.time = ''; lostFoundFields.contact = ''
   groupBuyFields.type = '外卖拼单'; groupBuyFields.targetCount = null; groupBuyFields.deadline = ''; groupBuyFields.location = ''
@@ -63,6 +63,26 @@ function resetForm() {
 }
 
 const now = () => new Date().toLocaleString('zh-CN', { hour12: false }).replace(/\//g, '-')
+
+const DEFAULT_IMAGES: Record<string, string> = {
+  '教材书籍': 'https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=300&fit=crop',
+  '数码电子': 'https://images.unsplash.com/photo-1505740420928-5e560c06d30e?w=400&h=300&fit=crop',
+  '生活用品': 'https://images.unsplash.com/photo-1485965120184-e220f721d03e?w=400&h=300&fit=crop',
+  '运动装备': 'https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=400&h=300&fit=crop',
+  'lost': 'https://images.unsplash.com/photo-1557200134-90327ee9fafa?w=400&h=300&fit=crop',
+  'found': 'https://images.unsplash.com/photo-1627123424574-724758594e93?w=400&h=300&fit=crop',
+  '外卖拼单': 'https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=400&h=300&fit=crop',
+  '奶茶拼单': 'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=400&h=300&fit=crop',
+  '取快递': 'https://images.unsplash.com/photo-1589939705384-5185137a7f0f?w=400&h=300&fit=crop',
+}
+
+function getDefaultImage(): string {
+  if (publishType.value === 'trade') return DEFAULT_IMAGES[tradeFields.category] || ''
+  if (publishType.value === 'lostFound') return DEFAULT_IMAGES[lostFoundFields.type] || ''
+  if (publishType.value === 'groupBuy') return DEFAULT_IMAGES[groupBuyFields.type] || ''
+  if (publishType.value === 'errand') return DEFAULT_IMAGES[errandFields.taskType] || ''
+  return ''
+}
 
 async function handleSubmit() {
   clearErrors()
@@ -76,6 +96,7 @@ async function handleSubmit() {
   if (!validate()) return
 
   const publisher = userStore.displayName
+  const image = form.imageUrl.trim() || getDefaultImage()
   submitting.value = true
   try {
     const publisher = userStore.displayName
@@ -83,25 +104,25 @@ async function handleSubmit() {
       await createTrade({
         title: form.title, price: tradeFields.price!, category: tradeFields.category,
         condition: tradeFields.condition, location: tradeFields.location, campus: form.campus,
-        description: form.description, publisher, publishTime: now(), status: 'open',
+        description: form.description, publisher, publishTime: now(), status: 'open', image,
       })
     } else if (publishType.value === 'lostFound') {
       await createLostFound({
         title: form.title, type: lostFoundFields.type, itemName: lostFoundFields.itemName,
         location: lostFoundFields.location, time: lostFoundFields.time, description: form.description,
-        contact: lostFoundFields.contact || publisher, status: 'open', campus: form.campus,
+        contact: lostFoundFields.contact || publisher, status: 'open', campus: form.campus, image,
       })
     } else if (publishType.value === 'groupBuy') {
       await createGroupBuy({
         title: form.title, type: groupBuyFields.type, targetCount: groupBuyFields.targetCount!,
         currentCount: 1, deadline: groupBuyFields.deadline, location: groupBuyFields.location || form.campus,
-        description: form.description, campus: form.campus, publisher, status: 'open',
+        description: form.description, campus: form.campus, publisher, status: 'open', image,
       })
     } else if (publishType.value === 'errand') {
       await createErrand({
         title: form.title, taskType: errandFields.taskType, reward: errandFields.reward!,
         pickupLocation: errandFields.pickupLocation, deliveryLocation: errandFields.deliveryLocation || form.campus,
-        deadline: errandFields.deadline, description: form.description, campus: form.campus, publisher, status: 'open',
+        deadline: errandFields.deadline, description: form.description, campus: form.campus, publisher, status: 'open', image,
       })
     }
     successMsg.value = '发布成功！正在跳转…'
@@ -177,6 +198,7 @@ watch(publishType, () => { clearErrors(); errorMsg.value = ''; successMsg.value 
       <FormField label="详细描述" :required="true" :error="errors.description">
         <textarea v-model="form.description" class="form-input" rows="4" placeholder="描述一下详细信息…"></textarea>
       </FormField>
+      <FormField label="图片链接（可选）"><input v-model="form.imageUrl" type="text" class="form-input" placeholder="输入图片URL，留空则使用系统默认图片" /></FormField>
       <p class="publisher-hint">📌 发布人：{{ userStore.displayName }}</p>
       <p v-if="successMsg" class="feedback-msg success">{{ successMsg }}</p>
       <p v-if="errorMsg" class="feedback-msg error">{{ errorMsg }}</p>
